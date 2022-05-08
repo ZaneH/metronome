@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import './App.css'
+import { ControlCenter } from './components/ControlCenter'
+import { MetroContextProvider } from './components/MetroContextProvider'
+import { Ticker } from './components/Ticker'
+
+const TickerWrapper = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  transform: translate(0, 20vh);
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <MetroContextProvider>
+        <TickerWrapper>
+          <Ticker />
+        </TickerWrapper>
+        <ControlCenter />
+      </MetroContextProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
