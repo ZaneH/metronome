@@ -4,6 +4,14 @@ A metronome built with Tauri.
 
 ## Running locally
 
+### Clone repository
+
+```bash
+git clone git@github.com:ZaneH/metronome.git
+```
+
+### Install dependencies and run project
+
 ```bash
 yarn && yarn tauri dev
 ```
