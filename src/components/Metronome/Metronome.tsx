@@ -1,12 +1,4 @@
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
 import TempoTapper from '../../utils/TempoTapper'
@@ -23,18 +15,18 @@ const TickerWrapper = styled.div`
   transform: translate(0, 20vh);
 `
 
-interface MetronomeProps {
-  isPlaying: boolean
-  setIsPlaying: Dispatch<SetStateAction<boolean>>
-}
-
-const Metronome: FC<MetronomeProps> = ({ isPlaying, setIsPlaying }) => {
-  const [hasStarted, setHasStarted] = useState(isPlaying)
-  const { bpm, setBpm } = useContext(MetroContext)
+const Metronome = () => {
+  const [hasStarted, setHasStarted] = useState(false)
+  const {
+    bpm,
+    setBpm,
+    isPlaying = false,
+    setIsPlaying,
+  } = useContext(MetroContext)
   const tapper = useMemo(() => new TempoTapper(), [])
 
   useEffect(() => {
-    setHasStarted(isPlaying)
+    setHasStarted?.(isPlaying)
   }, [isPlaying])
 
   return (
@@ -68,7 +60,7 @@ const Metronome: FC<MetronomeProps> = ({ isPlaying, setIsPlaying }) => {
                 if (!hasStarted) {
                   setHasStarted(true)
                 }
-                setIsPlaying(!isPlaying)
+                setIsPlaying?.(!isPlaying)
                 onPlay()
               }}
               isPlaying={playing}
