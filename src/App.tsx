@@ -16,12 +16,13 @@ function App() {
 
   useEventListener('keydown', handleKeyDown)
 
+  appWindow.setSize(new LogicalSize(350, 500))
   appWindow.setMinSize(new LogicalSize(350, 500))
 
   return (
     <div className='App'>
       <MetroContextProvider>
-        <Metronome isPlaying={isPlaying} />
+        <Metronome isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
       </MetroContextProvider>
     </div>
   )

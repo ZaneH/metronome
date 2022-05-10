@@ -1,4 +1,12 @@
-import { FC, useContext, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import styled from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
 import TempoTapper from '../../utils/TempoTapper'
@@ -17,18 +25,23 @@ const TickerWrapper = styled.div`
 
 interface MetronomeProps {
   isPlaying: boolean
+  setIsPlaying: Dispatch<SetStateAction<boolean>>
 }
 
-const Metronome: FC<MetronomeProps> = ({ isPlaying }) => {
-  const [hasStarted, setHasStarted] = useState(true)
+const Metronome: FC<MetronomeProps> = ({ isPlaying, setIsPlaying }) => {
+  const [hasStarted, setHasStarted] = useState(isPlaying)
   const { bpm, setBpm } = useContext(MetroContext)
   const tapper = useMemo(() => new TempoTapper(), [])
+
+  useEffect(() => {
+    setHasStarted(isPlaying)
+  }, [isPlaying])
 
   return (
     <LibMetronome
       key={`${bpm}-${isPlaying}`}
       tempo={bpm}
-      autoplay={hasStarted && isPlaying ? true : false}
+      autoplay={isPlaying}
       render={({
         playing,
         onPlay,
@@ -41,14 +54,6 @@ const Metronome: FC<MetronomeProps> = ({ isPlaying }) => {
         onPlay: () => void
         onTempoChange: (tempo: number) => void
       }) => {
-        const dontAutoplayIfNotPlaying = () => {
-          if (!playing) {
-            // disable autoplay if tempo changes
-            // and metro isn't playing
-            setHasStarted(false)
-          }
-        }
-
         return (
           <>
             <TickerWrapper>
@@ -56,8 +61,6 @@ const Metronome: FC<MetronomeProps> = ({ isPlaying }) => {
             </TickerWrapper>
             <ControlCenter
               onTempoChange={(tempo: number) => {
-                dontAutoplayIfNotPlaying()
-
                 onTempoChange(tempo)
                 setBpm?.(tempo)
               }}
@@ -65,12 +68,11 @@ const Metronome: FC<MetronomeProps> = ({ isPlaying }) => {
                 if (!hasStarted) {
                   setHasStarted(true)
                 }
+                setIsPlaying(!isPlaying)
                 onPlay()
               }}
               isPlaying={playing}
               handleTapTempo={() => {
-                dontAutoplayIfNotPlaying()
-
                 tapper.tap()
                 onTempoChange(tapper.bpm)
                 setBpm?.(tapper.bpm)

@@ -13,7 +13,7 @@ const BPMBarContainer = styled.div`
   background-color: black;
   font-family: 'Fira Code';
   font-size: 2rem;
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
 `
 
 const BPMAdjustmentButton = styled.div`

@@ -19,7 +19,7 @@ const MainControlsContainer = styled.div`
 
 const MainButton = styled.div`
   font-family: 'Fira Code';
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   border-radius: 50%;
   color: white;
