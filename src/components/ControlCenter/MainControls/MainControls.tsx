@@ -31,6 +31,7 @@ const MainButton = styled.div`
   justify-content: center;
   align-items: center;
   transition: background-color 20ms ease-out;
+  filter: drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.13));
   &:active {
     background-color: green;
   }

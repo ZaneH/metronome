@@ -12,7 +12,7 @@ to {
 }`
 
 export const SwingArm = styled.div<{ bps?: number; playing: boolean }>`
-  width: 8px;
+  width: 4px;
   height: 45vh;
   background: white;
   border-radius: 1vh;
@@ -27,7 +27,7 @@ export const SwingArm = styled.div<{ bps?: number; playing: boolean }>`
   }}
 
   animation-delay: -${({ bps }) => (bps || 0) / 2}s;
-  transform-origin: 4px 47vh;
+  transform-origin: 2px 47vh;
 `
 
 interface TickerProps {
