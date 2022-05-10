@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import { MainControls } from '.'
-import { Tapper } from '../Tapper'
+import { BPMBar } from '../BPMBar'
 
 const CCWrapper = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ export const ControlCenter: FC<ControlCenterProps> = ({
 }) => {
   return (
     <CCWrapper>
-      <Tapper />
+      <BPMBar onTempoChange={onTempoChange} />
       <MainControls
         onTempoChange={onTempoChange}
         onPlay={onPlay}

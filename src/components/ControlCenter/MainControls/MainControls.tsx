@@ -1,12 +1,17 @@
 import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { MetroContext } from '../../MetroContextProvider/MetroContextProvider'
+import PlayFillIcon from 'remixicon-react/PlayFillIcon'
+import StopFillIcon from 'remixicon-react/StopFillIcon'
 
 const MainControlsContainer = styled.div`
   width: 100%;
   height: 100%;
 
   display: flex;
+  *:hover {
+    cursor: pointer;
+  }
 `
 
 const MainButton = styled.div`
@@ -16,10 +21,14 @@ const MainButton = styled.div`
   width: 50%;
   height: 25vh;
   display: inline-flex;
-  background: blue;
+  background: grey;
   text-align: center;
   justify-content: center;
   align-items: center;
+  transition: background-color 20ms ease-out;
+  &:active {
+    background-color: green;
+  }
 `
 
 interface MainControlsProps {
@@ -33,18 +42,21 @@ const MainControls: FC<MainControlsProps> = ({
   onPlay,
   isPlaying,
 }) => {
-  const { bpm, setBpm } = useContext(MetroContext)
+  const { bpm } = useContext(MetroContext)
   return (
     <MainControlsContainer>
       <MainButton
         onClick={() => {
-          setBpm?.((bpm || 0) + 1)
           onTempoChange((bpm || 0) + 1)
         }}
       >
         Tap
+        <br />
+        BPM
       </MainButton>
-      <MainButton onClick={onPlay}>{isPlaying ? 'Stop' : 'Start'}</MainButton>
+      <MainButton onClick={onPlay}>
+        {isPlaying ? <StopFillIcon size={36} /> : <PlayFillIcon size={36} />}
+      </MainButton>
     </MainControlsContainer>
   )
 }

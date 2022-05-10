@@ -11,7 +11,7 @@ type MetroContextType = {
 export const MetroContext = createContext({} as MetroContextType)
 
 const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
-  const [bpm, setBpm] = useState(20)
+  const [bpm, setBpm] = useState(144)
   const context: MetroContextType = {
     bpm,
 

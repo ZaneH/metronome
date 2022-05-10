@@ -16,7 +16,7 @@ const TickerWrapper = styled.div`
 
 const Metronome = () => {
   const [hasStarted, setHasStarted] = useState(false)
-  const { bpm } = useContext(MetroContext)
+  const { bpm, setBpm } = useContext(MetroContext)
 
   return (
     <LibMetronome
@@ -24,7 +24,6 @@ const Metronome = () => {
       tempo={bpm}
       autoplay={hasStarted ? true : false}
       render={({
-        tempo,
         playing,
         onPlay,
         onTempoChange,
@@ -36,11 +35,10 @@ const Metronome = () => {
         onPlay: () => void
         onTempoChange: (tempo: number) => void
       }) => {
-        setHasStarted(true)
         return (
           <>
             <TickerWrapper>
-              <Ticker key={tempo} isPlaying={playing} />
+              <Ticker isPlaying={playing} />
             </TickerWrapper>
             <ControlCenter
               onTempoChange={(tempo: number) => {
@@ -51,8 +49,14 @@ const Metronome = () => {
                 }
 
                 onTempoChange(tempo)
+                setBpm?.(tempo)
               }}
-              onPlay={onPlay}
+              onPlay={() => {
+                if (!hasStarted) {
+                  setHasStarted(true)
+                }
+                onPlay()
+              }}
               isPlaying={playing}
             />
           </>
