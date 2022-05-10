@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import styled from 'styled-components'
 import { MainControls } from '.'
 import { Tapper } from '../Tapper'
@@ -9,11 +10,25 @@ const CCWrapper = styled.div`
   background: red;
 `
 
-export const ControlCenter = () => {
+interface ControlCenterProps {
+  onTempoChange: (tempo: number) => void
+  onPlay: () => void
+  isPlaying: boolean
+}
+
+export const ControlCenter: FC<ControlCenterProps> = ({
+  onTempoChange,
+  onPlay,
+  isPlaying,
+}) => {
   return (
     <CCWrapper>
       <Tapper />
-      <MainControls />
+      <MainControls
+        onTempoChange={onTempoChange}
+        onPlay={onPlay}
+        isPlaying={isPlaying}
+      />
     </CCWrapper>
   )
 }

@@ -15,7 +15,7 @@ const TapperContainer = styled.div`
 const Tapper = () => {
   const { bpm } = useContext(MetroContext)
 
-  return <TapperContainer>{bpm}</TapperContainer>
+  return <TapperContainer>{bpm?.toString()}</TapperContainer>
 }
 
 export default Tapper

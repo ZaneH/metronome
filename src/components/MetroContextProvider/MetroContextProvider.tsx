@@ -1,26 +1,21 @@
-import { createContext, FC, useState } from 'react'
+import { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
 
 type MetroContextType = {
   children?: React.ReactNode
 
-  bpm?: string
-  isPlaying?: boolean
+  bpm?: number
 
-  setBpm?: (bpm: string) => void
-  setIsPlaying?: (isPlaying: boolean) => void
+  setBpm?: Dispatch<SetStateAction<number>>
 }
 
 export const MetroContext = createContext({} as MetroContextType)
 
 const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
-  const [bpm, setBpm] = useState('2')
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [bpm, setBpm] = useState(20)
   const context: MetroContextType = {
     bpm,
-    isPlaying,
 
     setBpm,
-    setIsPlaying,
   }
 
   return (

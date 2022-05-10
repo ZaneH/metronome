@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { MetroContext } from '../../MetroContextProvider/MetroContextProvider'
 
@@ -22,19 +22,29 @@ const MainButton = styled.div`
   align-items: center;
 `
 
-const MainControls = () => {
+interface MainControlsProps {
+  onTempoChange: (tempo: number) => void
+  onPlay: () => void
+  isPlaying: boolean
+}
+
+const MainControls: FC<MainControlsProps> = ({
+  onTempoChange,
+  onPlay,
+  isPlaying,
+}) => {
   const { bpm, setBpm } = useContext(MetroContext)
   return (
     <MainControlsContainer>
       <MainButton
         onClick={() => {
-          console.log('bing:', bpm)
-          setBpm?.((parseInt(bpm!) + 1).toString())
+          setBpm?.((bpm || 0) + 1)
+          onTempoChange((bpm || 0) + 1)
         }}
       >
         Tap
       </MainButton>
-      <MainButton>Stop</MainButton>
+      <MainButton onClick={onPlay}>{isPlaying ? 'Stop' : 'Start'}</MainButton>
     </MainControlsContainer>
   )
 }
