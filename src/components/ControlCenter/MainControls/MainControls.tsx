@@ -10,7 +10,8 @@ const MainControlsContainer = styled.div`
   padding: 4vh 0;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 4vh;
   *:hover {
     cursor: pointer;
   }
