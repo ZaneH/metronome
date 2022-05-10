@@ -5,20 +5,27 @@ import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 const BPMBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 14vh;
 
   width: 100%;
   text-align: center;
-  background-color: #40514e;
-  font-family: 'Montserrat';
+  background-color: black;
+  font-family: 'Fira Code';
   font-size: 2rem;
   color: white;
-  padding: 18px 0;
 `
 
 const BPMAdjustmentButton = styled.div`
-  width: 20%;
+  font-family: 'Fira Code';
+  font-size: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14vh;
+  width: 14vh;
   height: 100%;
-  margin: 0 12px;
+  background-color: #2a2a2c;
   &:hover {
     cursor: pointer;
   }

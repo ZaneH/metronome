@@ -7,20 +7,25 @@ const MainControlsContainer = styled.div`
   width: 100%;
   height: 100%;
 
+  padding: 4vh 0;
+
   display: flex;
+  justify-content: space-evenly;
   *:hover {
     cursor: pointer;
   }
 `
 
 const MainButton = styled.div`
-  font-family: 'Montserrat';
-  font-size: 1.5rem;
+  font-family: 'Fira Code';
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  border-radius: 50%;
   color: white;
-  width: 50%;
+  width: 25vh;
   height: 25vh;
   display: inline-flex;
-  background: grey;
+  background: #1f1f20;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -44,11 +49,7 @@ const MainControls: FC<MainControlsProps> = ({
 }) => {
   return (
     <MainControlsContainer>
-      <MainButton onClick={handleTapTempo}>
-        Tap
-        <br />
-        BPM
-      </MainButton>
+      <MainButton onClick={handleTapTempo}>Tap</MainButton>
       <MainButton onClick={onPlay}>
         {isPlaying ? <StopFillIcon size={36} /> : <PlayFillIcon size={36} />}
       </MainButton>

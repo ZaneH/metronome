@@ -18,7 +18,7 @@ const TickerWrapper = styled.div`
 const Metronome = () => {
   const [hasStarted, setHasStarted] = useState(false)
   const { bpm, setBpm } = useContext(MetroContext)
-  const tt = useMemo(() => new TempoTapper(), [])
+  const tapper = useMemo(() => new TempoTapper(), [])
 
   return (
     <LibMetronome
@@ -67,9 +67,9 @@ const Metronome = () => {
               handleTapTempo={() => {
                 dontAutoplayIfNotPlaying()
 
-                tt.tap()
-                onTempoChange(tt.bpm)
-                setBpm?.(tt.bpm)
+                tapper.tap()
+                onTempoChange(tapper.bpm)
+                setBpm?.(tapper.bpm)
               }}
             />
           </>
