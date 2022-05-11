@@ -9,9 +9,12 @@ const HeaderContainer = styled.div`
   top: 32px;
   left: 0;
   right: 24px;
-
   display: flex;
   justify-content: flex-end;
+
+  * {
+    cursor: pointer;
+  }
 `
 
 const Header = () => {

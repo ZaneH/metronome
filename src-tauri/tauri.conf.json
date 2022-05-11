@@ -16,7 +16,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Music",
       "copyright": "",
       "deb": {
         "depends": []
@@ -59,7 +59,7 @@
         "height": 600,
         "resizable": true,
         "title": "Metronome",
-        "width": 800
+        "width": 350
       }
     ]
   }

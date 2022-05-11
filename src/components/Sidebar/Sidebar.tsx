@@ -1,7 +1,10 @@
-import { FC, useContext } from 'react'
+import { FC, useCallback, useContext, useMemo } from 'react'
 import CheckboxBlankLineIcon from 'remixicon-react/CheckboxBlankLineIcon'
+import CheckboxLineIcon from 'remixicon-react/CheckboxLineIcon'
 import CloseIcon from 'remixicon-react/CloseLineIcon'
 import styled, { keyframes } from 'styled-components'
+import { SETTINGS, SETTING_KEY } from '../../utils/constants'
+import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 import BigButton from './BigButton'
 
@@ -38,6 +41,10 @@ const SidebarTitle = styled.div`
   justify-content: space-between;
   gap: 16px;
   align-items: center;
+
+  * {
+    cursor: pointer;
+  }
 `
 
 const SidebarRow = styled.div`
@@ -47,6 +54,10 @@ const SidebarRow = styled.div`
   font-size: 0.95rem;
   font-weight: 300;
   padding: 4px 0;
+
+  * {
+    cursor: pointer;
+  }
 `
 
 const SidebarSubtext = styled.div`
@@ -58,15 +69,92 @@ const SidebarCheck = styled.div`
   display: flex-inline;
 `
 
+type SettingItem = {
+  key: string
+  label: string
+  checked?: boolean
+}
+
 interface SidebarProps {
   title: string
 }
 
 const Sidebar: FC<SidebarProps> = ({ title }) => {
   const { isShowingSidebar, setIsShowingSidebar } = useContext(MetroContext)
+  const {
+    showMetronome,
+    setShowMetronome,
+    muteSound,
+    setMuteSound,
+    blinkOnTick,
+    setBlinkOnTick,
+    darkMode,
+    setDarkMode,
+    customBackgroundColor,
+    setCustomBackgroundColor,
+    saveSetting,
+  } = useContext(KVContext)
+
+  const isChecked = useCallback(
+    (key: SETTING_KEY) => {
+      switch (key) {
+        case 'show-metronome':
+          return showMetronome
+        case 'mute-sound':
+          return muteSound
+        case 'blink-on-tick':
+          return blinkOnTick
+        case 'dark-mode':
+          return darkMode
+        case 'custom-background-color':
+          return customBackgroundColor
+        default:
+          return false
+      }
+    },
+    [showMetronome, muteSound, blinkOnTick, darkMode, customBackgroundColor]
+  )
+
+  const settingItems = useMemo(
+    () =>
+      Object.keys(SETTINGS).map(
+        (k: string) =>
+          ({
+            key: k,
+            label: SETTINGS[k as SETTING_KEY],
+            checked: isChecked(k as SETTING_KEY),
+          } as SettingItem)
+      ),
+    [isChecked]
+  )
 
   if (!isShowingSidebar) {
     return null
+  }
+
+  const handleRowClick = (key: SETTING_KEY, checked?: boolean) => {
+    switch (key) {
+      case 'show-metronome':
+        setShowMetronome?.(checked!)
+        saveSetting?.('show-metronome', checked!)
+        break
+      case 'mute-sound':
+        setMuteSound?.(checked!)
+        saveSetting?.('mute-sound', checked!)
+        break
+      case 'blink-on-tick':
+        setBlinkOnTick?.(checked!)
+        saveSetting?.('blink-on-tick', checked!)
+        break
+      case 'dark-mode':
+        setDarkMode?.(checked!)
+        saveSetting?.('dark-mode', checked!)
+        break
+      case 'custom-background-color':
+        setCustomBackgroundColor?.(checked!)
+        saveSetting?.('custom-background-color', checked!)
+        break
+    }
   }
 
   return (
@@ -81,39 +169,21 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           onClick={() => setIsShowingSidebar?.(false)}
         />
       </SidebarTitle>
-      <SidebarRow>
-        <SidebarSubtext>Show metronome</SidebarSubtext>
-        <SidebarCheck>
-          <CheckboxBlankLineIcon />
-        </SidebarCheck>
-      </SidebarRow>
-      <SidebarRow>
-        <SidebarSubtext>Custom background color</SidebarSubtext>
-        <SidebarCheck>
-          <CheckboxBlankLineIcon />
-        </SidebarCheck>
-      </SidebarRow>
-      <SidebarRow>
-        <BigButton>Change Theme</BigButton>
-      </SidebarRow>
-      <SidebarRow>
-        <SidebarSubtext>Mute sound</SidebarSubtext>
-        <SidebarCheck>
-          <CheckboxBlankLineIcon />
-        </SidebarCheck>
-      </SidebarRow>
-      <SidebarRow>
-        <SidebarSubtext>Blink on tick</SidebarSubtext>
-        <SidebarCheck>
-          <CheckboxBlankLineIcon />
-        </SidebarCheck>
-      </SidebarRow>
-      <SidebarRow>
-        <SidebarSubtext>Dark mode</SidebarSubtext>
-        <SidebarCheck>
-          <CheckboxBlankLineIcon />
-        </SidebarCheck>
-      </SidebarRow>
+      {settingItems.map((s, i) =>
+        i === 2 ? (
+          <BigButton key={s.key}>{s.label}</BigButton>
+        ) : (
+          <SidebarRow
+            key={s.key}
+            onClick={() => handleRowClick(s.key as SETTING_KEY, !s.checked)}
+          >
+            <SidebarSubtext>{s.label}</SidebarSubtext>
+            <SidebarCheck>
+              {s.checked ? <CheckboxLineIcon /> : <CheckboxBlankLineIcon />}
+            </SidebarCheck>
+          </SidebarRow>
+        )
+      )}
     </SidebarContainer>
   )
 }

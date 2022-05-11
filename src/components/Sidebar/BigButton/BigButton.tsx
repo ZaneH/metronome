@@ -8,11 +8,13 @@ const Button = styled.div`
   color: black;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
+  letter-spacing: 0.01rem;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 12px 0;
+  margin: 16px 0;
+  cursor: pointer;
 `
 
 interface BigButtonProps {
