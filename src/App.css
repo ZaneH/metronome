@@ -1,10 +1,19 @@
 * {
-    user-select: none;
-    cursor: default;
+  user-select: none;
+  cursor: default;
 }
 
 .App {
-    background: #1F1F20;
-    min-height: 100vh;
-    height: 100vh;
+  background: #1f1f20;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
 }

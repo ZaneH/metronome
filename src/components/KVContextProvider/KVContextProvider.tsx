@@ -31,6 +31,10 @@ type KVContextType = {
 
 export const KVContext = createContext({} as KVContextType)
 
+/**
+ * Responsible for providing persistant storage and reacting to
+ * modified states (a.k.a. settings)
+ */
 const KVContextProvider: FC<KVContextType> = ({ children }) => {
   const [showMetronome, setShowMetronome] = useState(true)
   const [muteSound, setMuteSound] = useState(false)

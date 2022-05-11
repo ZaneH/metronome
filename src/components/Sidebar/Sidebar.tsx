@@ -29,6 +29,8 @@ const SidebarContainer = styled.div`
   bottom: 0;
   right: 0;
   background-color: #181819;
+  overflow-y: scroll;
+  box-sizing: border-box;
 
   animation: ${FadeIn} 0.1s ease;
 `
