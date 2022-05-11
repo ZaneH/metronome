@@ -63,7 +63,7 @@ const MainControls: FC<MainControlsProps> = ({
   isPlaying,
   handleTapTempo,
 }) => {
-  const matches = useMediaQuery('(max-height: 400px), (max-width: 500px)')
+  const matches = useMediaQuery('(max-height: 450px), (max-width: 300px)')
   const iconSize = matches ? 24 : 36
   return (
     <MainControlsContainer>
