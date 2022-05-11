@@ -6,7 +6,6 @@ import styled, { keyframes } from 'styled-components'
 import { SETTINGS, SETTING_KEY } from '../../utils/constants'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
-import BigButton from './BigButton'
 
 const FadeIn = keyframes`
 0% {
@@ -69,6 +68,22 @@ const SidebarSubtext = styled.div`
 
 const SidebarCheck = styled.div`
   display: flex-inline;
+`
+
+const Button = styled.div`
+  width: 100%;
+  height: 44px;
+  background-color: white;
+  color: black;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+  cursor: pointer;
 `
 
 type SettingItem = {
@@ -171,9 +186,9 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           onClick={() => setIsShowingSidebar?.(false)}
         />
       </SidebarTitle>
-      {settingItems.map((s, i) =>
-        i === 2 ? (
-          <BigButton key={s.key}>{s.label}</BigButton>
+      {settingItems.map((s) =>
+        (s.key as SETTING_KEY) === 'change-theme' ? (
+          <Button key={s.key}>{s.label}</Button>
         ) : (
           <SidebarRow
             key={s.key}
