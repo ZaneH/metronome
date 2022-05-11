@@ -1,11 +1,13 @@
 import { useContext } from 'react'
+import FullscreenLineIcon from 'remixicon-react/FullscreenLineIcon'
 import SettingsFillIcon from 'remixicon-react/Settings3FillIcon'
 import VolumeMuteLineIcon from 'remixicon-react/VolumeMuteLineIcon'
-import styled, { css } from 'styled-components'
+import VolumeLineIcon from 'remixicon-react/VolumeUpLineIcon'
+import styled from 'styled-components'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 
-const HeaderContainer = styled.div<{ pushRight?: boolean }>`
+const HeaderContainer = styled.div`
   position: absolute;
   opacity: 0.7;
   top: 32px;
@@ -14,15 +16,9 @@ const HeaderContainer = styled.div<{ pushRight?: boolean }>`
   display: flex;
   justify-content: space-between;
 
-  ${({ pushRight }) =>
-    pushRight &&
-    css`
-      justify-content: flex-end;
-    `}
-
   @media (max-height: 450px), (max-width: 300px) {
     top: 5vh;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 18px;
   }
 
@@ -33,15 +29,22 @@ const HeaderContainer = styled.div<{ pushRight?: boolean }>`
 
 const Header = () => {
   const { setIsShowingSidebar } = useContext(MetroContext)
-  const { muteSound, setMuteSound } = useContext(KVContext)
+  const { muteSound, setMuteSound, showMetronome, setShowMetronome } =
+    useContext(KVContext)
 
   return (
-    <HeaderContainer pushRight={!muteSound}>
-      {muteSound && (
+    <HeaderContainer>
+      {muteSound ? (
         <VolumeMuteLineIcon
           color='white'
           size={24}
           onClick={() => setMuteSound?.(false)}
+        />
+      ) : (
+        <VolumeLineIcon
+          color='white'
+          size={24}
+          onClick={() => setMuteSound?.(true)}
         />
       )}
       <SettingsFillIcon
@@ -49,6 +52,13 @@ const Header = () => {
         size={24}
         onClick={() => setIsShowingSidebar?.(true)}
       />
+      {!showMetronome && (
+        <FullscreenLineIcon
+          color='white'
+          size={24}
+          onClick={() => setShowMetronome?.(true)}
+        />
+      )}
     </HeaderContainer>
   )
 }

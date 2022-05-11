@@ -9,7 +9,9 @@ use tauri_plugin_store::PluginBuilder;
 fn main() {
   let menu = Menu::new().add_submenu(Submenu::new(
     "Metronome",
-    Menu::new().add_native_item(MenuItem::Quit),
+    Menu::new()
+      .add_native_item(MenuItem::EnterFullScreen)
+      .add_native_item(MenuItem::Quit),
   ));
 
   tauri::Builder::default()

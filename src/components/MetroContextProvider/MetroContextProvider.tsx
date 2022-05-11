@@ -16,6 +16,10 @@ type MetroContextType = {
 
 export const MetroContext = createContext({} as MetroContextType)
 
+/**
+ * Contains the high-level state. Keep this context limited to
+ * variables that need to be accessed globally.
+ */
 const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
   const [bpm, setBpm] = useState(120)
   const [isPlaying, setIsPlaying] = useState(false)

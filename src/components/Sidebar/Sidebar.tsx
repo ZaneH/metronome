@@ -20,7 +20,7 @@ const FadeIn = keyframes`
 const SidebarContainer = styled.div`
   font-family: 'Inter', sans-serif;
   color: white;
-  padding: 24px;
+  padding: 28px 24px;
   width: 256px;
   height: 100%;
   position: fixed;
@@ -35,7 +35,7 @@ const SidebarContainer = styled.div`
 `
 
 const SidebarTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   font-size: 2rem;
   margin-bottom: 12px;
   display: flex;
