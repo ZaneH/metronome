@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
         "resizable": true,
         "title": "Metronome",
-        "width": 350
+        "width": 350,
+        "height": 500
       }
     ]
   }
