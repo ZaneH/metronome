@@ -11,7 +11,7 @@ const MainControlsContainer = styled.div`
 
   display: flex;
   justify-content: center;
-  gap: 4vh;
+  gap: 56px;
   *:hover {
     cursor: pointer;
   }
@@ -25,8 +25,8 @@ const MainButton = styled.div`
   color: white;
   width: 25vh;
   height: 25vh;
-  max-width: 128px;
-  max-height: 128px;
+  max-width: 96px;
+  max-height: 96px;
   display: inline-flex;
   background: #1f1f20;
   text-align: center;

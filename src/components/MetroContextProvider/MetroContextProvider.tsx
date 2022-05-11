@@ -1,27 +1,17 @@
 import { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
+import TempoTapper from '../../utils/TempoTapper'
 
 type MetroContextType = {
   children?: React.ReactNode
 
-  /**
-   * BPM of the metronome
-   */
   bpm?: number
-
-  /**
-   * Is the metronome playing?
-   */
   isPlaying?: boolean
-
-  /**
-   * Set the BPM (used for state updates)
-   */
+  isShowingSidebar?: boolean
+  tapper?: TempoTapper
   setBpm?: Dispatch<SetStateAction<number>>
-
-  /**
-   * Set if playing (used for state updates)
-   */
   setIsPlaying?: Dispatch<SetStateAction<boolean>>
+  setIsShowingSidebar?: Dispatch<SetStateAction<boolean>>
+  setTapper?: Dispatch<SetStateAction<TempoTapper>>
 }
 
 export const MetroContext = createContext({} as MetroContextType)
@@ -29,13 +19,19 @@ export const MetroContext = createContext({} as MetroContextType)
 const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
   const [bpm, setBpm] = useState(120)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isShowingSidebar, setIsShowingSidebar] = useState(false)
+  const [tapper, setTapper] = useState(new TempoTapper())
 
   const context: MetroContextType = {
     bpm,
     isPlaying,
+    isShowingSidebar,
+    tapper,
 
     setBpm,
     setIsPlaying,
+    setIsShowingSidebar,
+    setTapper,
   }
 
   return (

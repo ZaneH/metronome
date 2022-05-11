@@ -1,7 +1,6 @@
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
-import TempoTapper from '../../utils/TempoTapper'
 import { ControlCenter } from '../ControlCenter'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 import { Ticker } from '../Ticker'
@@ -62,9 +61,8 @@ const Metronome = () => {
     setBpm,
     isPlaying = false,
     setIsPlaying,
+    tapper,
   } = useContext(MetroContext)
-  const tapper = useMemo(() => new TempoTapper(), [])
-
   useEffect(() => {
     setHasStarted?.(isPlaying)
   }, [isPlaying])
@@ -106,9 +104,9 @@ const Metronome = () => {
               }}
               isPlaying={playing}
               handleTapTempo={() => {
-                tapper.tap()
-                onTempoChange(tapper.bpm)
-                setBpm?.(tapper.bpm)
+                tapper?.tap()
+                onTempoChange(tapper?.bpm)
+                setBpm?.(tapper?.bpm)
               }}
             />
           </>
