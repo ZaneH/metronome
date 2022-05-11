@@ -5,9 +5,10 @@ import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 
 const HeaderContainer = styled.div`
   position: absolute;
+  opacity: 0.7;
   top: 32px;
   left: 0;
-  right: 32px;
+  right: 24px;
 
   display: flex;
   justify-content: flex-end;

@@ -1,8 +1,19 @@
 import { FC, useContext } from 'react'
 import CheckboxBlankLineIcon from 'remixicon-react/CheckboxBlankLineIcon'
-import styled from 'styled-components'
+import CloseIcon from 'remixicon-react/CloseLineIcon'
+import styled, { keyframes } from 'styled-components'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 import BigButton from './BigButton'
+
+const FadeIn = keyframes`
+0% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+`
 
 const SidebarContainer = styled.div`
   font-family: 'Inter', sans-serif;
@@ -15,12 +26,18 @@ const SidebarContainer = styled.div`
   bottom: 0;
   right: 0;
   background-color: #181819;
+
+  animation: ${FadeIn} 0.1s ease;
 `
 
 const SidebarTitle = styled.div`
   font-weight: 500;
   font-size: 2rem;
   margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
 `
 
 const SidebarRow = styled.div`
@@ -46,7 +63,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ title }) => {
-  const { isShowingSidebar } = useContext(MetroContext)
+  const { isShowingSidebar, setIsShowingSidebar } = useContext(MetroContext)
 
   if (!isShowingSidebar) {
     return null
@@ -54,7 +71,16 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
 
   return (
     <SidebarContainer>
-      <SidebarTitle>{title}</SidebarTitle>
+      <SidebarTitle>
+        {title}
+        <CloseIcon
+          style={{
+            transform: 'translate(4px, 0)',
+          }}
+          size={32}
+          onClick={() => setIsShowingSidebar?.(false)}
+        />
+      </SidebarTitle>
       <SidebarRow>
         <SidebarSubtext>Show metronome</SidebarSubtext>
         <SidebarCheck>
