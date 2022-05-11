@@ -25,6 +25,8 @@ const MainButton = styled.div`
   color: white;
   width: 25vh;
   height: 25vh;
+  max-width: 128px;
+  max-height: 128px;
   display: inline-flex;
   background: #1f1f20;
   text-align: center;

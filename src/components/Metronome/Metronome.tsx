@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
 import TempoTapper from '../../utils/TempoTapper'
 import { ControlCenter } from '../ControlCenter'
@@ -13,6 +13,46 @@ const TickerWrapper = styled.div`
   justify-content: center;
   overflow: hidden;
   transform: translate(0, 20vh);
+`
+
+const markBounce = keyframes`
+0% {
+  opacity: 1;
+}
+
+3% {
+  opacity: 0;
+}
+
+97% {
+  opacity: 0;
+}
+
+100% {
+  opacity: 1;
+}
+`
+
+const MiddleMark = styled.div<{ playing: boolean; bps: number }>`
+  ${({ playing, bps }) => {
+    return (
+      playing &&
+      css`
+        animation: ${markBounce} ${bps}s linear infinite;
+      `
+    )
+  }}
+
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  width: 1.5vh;
+  height: 1.5vh;
+  top: 12vh;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 `
 
 const Metronome = () => {
@@ -48,6 +88,7 @@ const Metronome = () => {
       }) => {
         return (
           <>
+            <MiddleMark playing={playing} bps={60 / (bpm || 0)} />
             <TickerWrapper>
               <Ticker isPlaying={playing} />
             </TickerWrapper>
