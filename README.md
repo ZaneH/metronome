@@ -29,6 +29,12 @@ git clone git@github.com:ZaneH/metronome.git
 yarn && yarn tauri dev
 ```
 
+### Build target binary
+
+```bash
+yarn tauri build
+```
+
 ## Releases
 
 The latest release can be found [here](https://github.com/ZaneH/metronome/releases).

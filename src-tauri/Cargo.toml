@@ -1,11 +1,11 @@
 [package]
-name = "app"
+name = "metronome"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "The minimal metronome"
+authors = ["Zane Helton"]
 license = ""
 repository = ""
-default-run = "app"
+default-run = "metronome"
 edition = "2021"
 rust-version = "1.57"
 
