@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
 import { ControlCenter } from '../ControlCenter'
+import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 import { Ticker } from '../Ticker'
 
@@ -32,15 +33,22 @@ const markBounce = keyframes`
 }
 `
 
-const MiddleMark = styled.div<{ playing: boolean; bps: number }>`
-  ${({ playing, bps }) => {
-    return (
-      playing &&
-      css`
-        animation: ${markBounce} ${bps}s linear infinite;
-      `
-    )
-  }}
+const MiddleMark = styled.div<{
+  playing: boolean
+  bps: number
+  hidden?: boolean
+}>`
+  ${({ playing, bps }) =>
+    playing &&
+    css`
+      animation: ${markBounce} ${bps}s linear infinite;
+    `}
+
+  ${({ hidden }) =>
+    hidden &&
+    css`
+      display: none;
+    `}
 
   position: absolute;
   border-radius: 50%;
@@ -63,15 +71,18 @@ const Metronome = () => {
     setIsPlaying,
     tapper,
   } = useContext(MetroContext)
+  const { blinkOnTick, muteSound } = useContext(KVContext)
+
   useEffect(() => {
     setHasStarted?.(isPlaying)
   }, [isPlaying])
 
   return (
     <LibMetronome
-      key={`${bpm}-${isPlaying}`}
+      key={`${bpm}-${isPlaying}-${blinkOnTick}`}
       tempo={bpm}
       autoplay={isPlaying}
+      beatVolume={muteSound ? 0 : 1}
       render={({
         playing,
         onPlay,
@@ -86,7 +97,11 @@ const Metronome = () => {
       }) => {
         return (
           <>
-            <MiddleMark playing={playing} bps={60 / (bpm || 0)} />
+            <MiddleMark
+              playing={playing}
+              bps={60 / (bpm || 0)}
+              hidden={!blinkOnTick}
+            />
             <TickerWrapper>
               <Ticker isPlaying={playing} />
             </TickerWrapper>

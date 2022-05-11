@@ -39,11 +39,10 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
 
   const store = useMemo(() => new Store('.settings.dat'), [])
 
-  const loadSettingsFromStorage = useCallback(
+  const loadSettingIntoState = useCallback(
     async (key: SETTING_KEY) => {
       const value = Boolean(await store.get(key))
 
-      console.log('Setting', key, 'to', value)
       switch (key) {
         case 'show-metronome':
           setShowMetronome(value)
@@ -72,8 +71,21 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
     ]
   )
 
+  useEffect(() => {
+    store
+      .load()
+      .then(() => {
+        loadSettingIntoState('show-metronome')
+        loadSettingIntoState('mute-sound')
+        loadSettingIntoState('blink-on-tick')
+        loadSettingIntoState('dark-mode')
+        loadSettingIntoState('custom-background-color')
+      })
+      .catch((e) => console.error(e))
+  }, [store, loadSettingIntoState])
+
   const saveSetting = useCallback(
-    (key: SETTING_KEY, value: boolean) => {
+    (key: SETTING_KEY, value: any) => {
       store.set(key, value)
       store.save()
     },
@@ -93,20 +105,6 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
     setCustomBackgroundColor,
     saveSetting,
   }
-
-  useEffect(() => {
-    console.log('LOADING CONFIG')
-    store
-      .load()
-      .then(async () => {
-        loadSettingsFromStorage('show-metronome')
-        loadSettingsFromStorage('mute-sound')
-        loadSettingsFromStorage('blink-on-tick')
-        loadSettingsFromStorage('dark-mode')
-        loadSettingsFromStorage('custom-background-color')
-      })
-      .catch((e) => console.log(e))
-  }, [store, loadSettingsFromStorage])
 
   return <KVContext.Provider value={context}>{children}</KVContext.Provider>
 }

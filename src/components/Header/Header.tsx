@@ -1,16 +1,24 @@
 import { useContext } from 'react'
 import SettingsFillIcon from 'remixicon-react/Settings3FillIcon'
-import styled from 'styled-components'
+import VolumeMuteLineIcon from 'remixicon-react/VolumeMuteLineIcon'
+import styled, { css } from 'styled-components'
+import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.div<{ pushRight?: boolean }>`
   position: absolute;
   opacity: 0.7;
   top: 32px;
-  left: 0;
+  left: 24px;
   right: 24px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  ${({ pushRight }) =>
+    pushRight &&
+    css`
+      justify-content: flex-end;
+    `}
 
   * {
     cursor: pointer;
@@ -18,14 +26,22 @@ const HeaderContainer = styled.div`
 `
 
 const Header = () => {
-  const { isShowingSidebar, setIsShowingSidebar } = useContext(MetroContext)
+  const { setIsShowingSidebar } = useContext(MetroContext)
+  const { muteSound, setMuteSound } = useContext(KVContext)
 
   return (
-    <HeaderContainer>
+    <HeaderContainer pushRight={!muteSound}>
+      {muteSound && (
+        <VolumeMuteLineIcon
+          color='white'
+          size={24}
+          onClick={() => setMuteSound?.(false)}
+        />
+      )}
       <SettingsFillIcon
         color='white'
         size={24}
-        onClick={() => setIsShowingSidebar?.(!isShowingSidebar)}
+        onClick={() => setIsShowingSidebar?.(true)}
       />
     </HeaderContainer>
   )
