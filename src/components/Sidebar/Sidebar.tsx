@@ -58,6 +58,7 @@ const SidebarRow = styled.div`
 
   * {
     cursor: pointer;
+    display: flex;
   }
 `
 
@@ -196,7 +197,11 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           >
             <SidebarSubtext>{s.label}</SidebarSubtext>
             <SidebarCheck>
-              {s.checked ? <CheckboxLineIcon /> : <CheckboxBlankLineIcon />}
+              {s.checked ? (
+                <CheckboxLineIcon size={24} />
+              ) : (
+                <CheckboxBlankLineIcon size={24} />
+              )}
             </SidebarCheck>
           </SidebarRow>
         )
