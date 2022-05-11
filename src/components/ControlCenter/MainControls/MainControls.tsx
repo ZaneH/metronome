@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@react-hook/media-query'
 import { FC } from 'react'
 import PlayFillIcon from 'remixicon-react/PlayFillIcon'
 import StopFillIcon from 'remixicon-react/StopFillIcon'
@@ -14,6 +15,11 @@ const MainControlsContainer = styled.div`
   gap: 56px;
   *:hover {
     cursor: pointer;
+  }
+
+  @media (max-height: 450px), (max-width: 300px) {
+    gap: 24px;
+    padding: 8vh 0;
   }
 `
 
@@ -37,6 +43,12 @@ const MainButton = styled.div`
   &:active {
     background-color: green;
   }
+
+  @media (max-height: 450px), (max-width: 300px) {
+    width: 40vh;
+    height: 40vh;
+    font-size: 1rem;
+  }
 `
 
 interface MainControlsProps {
@@ -51,11 +63,17 @@ const MainControls: FC<MainControlsProps> = ({
   isPlaying,
   handleTapTempo,
 }) => {
+  const matches = useMediaQuery('(max-height: 400px), (max-width: 500px)')
+  const iconSize = matches ? 24 : 36
   return (
     <MainControlsContainer>
       <MainButton onClick={handleTapTempo}>Tap</MainButton>
       <MainButton onClick={onPlay}>
-        {isPlaying ? <StopFillIcon size={36} /> : <PlayFillIcon size={36} />}
+        {isPlaying ? (
+          <StopFillIcon size={iconSize} />
+        ) : (
+          <PlayFillIcon size={iconSize} />
+        )}
       </MainButton>
     </MainControlsContainer>
   )

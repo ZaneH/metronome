@@ -20,6 +20,12 @@ const HeaderContainer = styled.div<{ pushRight?: boolean }>`
       justify-content: flex-end;
     `}
 
+  @media (max-height: 450px), (max-width: 300px) {
+    top: 5vh;
+    justify-content: center;
+    gap: 18px;
+  }
+
   * {
     cursor: pointer;
   }

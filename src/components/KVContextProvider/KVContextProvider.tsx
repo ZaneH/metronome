@@ -1,3 +1,4 @@
+import { appWindow, LogicalSize } from '@tauri-apps/api/window'
 import {
   createContext,
   Dispatch,
@@ -38,6 +39,13 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
   const [customBackgroundColor, setCustomBackgroundColor] = useState(false)
 
   const store = useMemo(() => new Store('.settings.dat'), [])
+
+  useEffect(() => {
+    const biggerSize = new LogicalSize(350, 500)
+    const smallerSize = new LogicalSize(300, 200)
+    appWindow.setSize(showMetronome ? biggerSize : smallerSize)
+    appWindow.setMinSize(showMetronome ? biggerSize : smallerSize)
+  }, [showMetronome])
 
   const loadSettingIntoState = useCallback(
     async (key: SETTING_KEY) => {

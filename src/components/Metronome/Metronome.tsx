@@ -71,7 +71,7 @@ const Metronome = () => {
     setIsPlaying,
     tapper,
   } = useContext(MetroContext)
-  const { blinkOnTick, muteSound } = useContext(KVContext)
+  const { blinkOnTick, muteSound, showMetronome } = useContext(KVContext)
 
   useEffect(() => {
     setHasStarted?.(isPlaying)
@@ -97,14 +97,18 @@ const Metronome = () => {
       }) => {
         return (
           <>
-            <MiddleMark
-              playing={playing}
-              bps={60 / (bpm || 0)}
-              hidden={!blinkOnTick}
-            />
-            <TickerWrapper>
-              <Ticker isPlaying={playing} />
-            </TickerWrapper>
+            {showMetronome && (
+              <MiddleMark
+                playing={playing}
+                bps={60 / (bpm || 0)}
+                hidden={!blinkOnTick}
+              />
+            )}
+            {showMetronome && (
+              <TickerWrapper>
+                <Ticker isPlaying={playing} />
+              </TickerWrapper>
+            )}
             <ControlCenter
               onTempoChange={(tempo: number) => {
                 onTempoChange(tempo)

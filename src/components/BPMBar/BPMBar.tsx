@@ -14,6 +14,11 @@ const BPMBarContainer = styled.div`
   font-family: 'Fira Code';
   font-size: 2rem;
   color: rgba(255, 255, 255, 0.8);
+
+  @media (max-height: 450px), (max-width: 300px) {
+    font-size: 1.25rem;
+    height: 20vh;
+  }
 `
 
 const BPMAdjustmentButton = styled.div`
@@ -22,12 +27,22 @@ const BPMAdjustmentButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 14vh;
   width: 14vh;
   height: 100%;
   background-color: #2a2a2c;
   &:hover {
     cursor: pointer;
+  }
+
+  @media (max-height: 450px), (max-width: 300px) {
+    font-size: 1.5rem;
+    width: 20vh;
+  }
+`
+
+const BPMDisplay = styled.div`
+  @media (max-height: 450px), (max-width: 300px) {
+    width: 80vw;
   }
 `
 
@@ -47,7 +62,7 @@ const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
       >
         -
       </BPMAdjustmentButton>
-      {bpm?.toString() || 0}
+      <BPMDisplay>{bpm?.toString() || 0}</BPMDisplay>
       <BPMAdjustmentButton
         onClick={() => {
           onTempoChange((bpm || 0) + 1)
