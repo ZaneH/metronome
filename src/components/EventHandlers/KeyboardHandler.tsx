@@ -9,6 +9,7 @@ const KeyboardHandler = () => {
     setIsPlaying,
     bpm = '',
     setBpm,
+    isShowingSidebar,
     setIsShowingSidebar,
     tapper,
   } = useContext(MetroContext)
@@ -61,6 +62,8 @@ const KeyboardHandler = () => {
       setMuteSound?.(!muteSound)
     } else if (key === 'f') {
       setShowMetronome?.(!showMetronome)
+    } else if (key === 's') {
+      setIsShowingSidebar?.(!isShowingSidebar)
     } else {
       if (process.env.NODE_ENV === 'development') {
         console.log('[KeyboardHandler] Unrecognized key: ', key)

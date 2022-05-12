@@ -14,6 +14,7 @@ A metronome built with Tauri.
 |     m     |       Toggle mute        |
 |     t     |        Tap tempo         |
 |     f     | Toggle metronome display |
+|     s     |     Toggle settings      |
 
 ## Running locally
 
