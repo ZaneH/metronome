@@ -2,6 +2,7 @@ import useEventListener from '@use-it/event-listener'
 import { useCallback, useContext } from 'react'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
+import { ThemeContext } from '../ThemeProvider'
 
 const KeyboardHandler = () => {
   const {
@@ -15,6 +16,7 @@ const KeyboardHandler = () => {
   } = useContext(MetroContext)
   const { muteSound, setMuteSound, showMetronome, setShowMetronome } =
     useContext(KVContext)
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext)
 
   const decrementBpm = useCallback(() => {
     setBpm?.(Number(bpm) - 1)
@@ -64,6 +66,8 @@ const KeyboardHandler = () => {
       setShowMetronome?.(!showMetronome)
     } else if (key === 's') {
       setIsShowingSidebar?.(!isShowingSidebar)
+    } else if (key === 'd') {
+      setIsDarkMode(!isDarkMode)
     } else {
       if (process.env.NODE_ENV === 'development') {
         console.log('[KeyboardHandler] Unrecognized key: ', key)

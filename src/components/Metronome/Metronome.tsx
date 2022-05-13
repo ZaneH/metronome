@@ -52,7 +52,7 @@ const MiddleMark = styled.div<{
 
   position: absolute;
   border-radius: 50%;
-  background-color: white;
+  background-color: ${(p) => p.theme.extra.swingArm};
   width: 1.5vh;
   height: 1.5vh;
   top: 12vh;

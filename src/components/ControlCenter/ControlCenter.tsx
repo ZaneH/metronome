@@ -7,7 +7,7 @@ const CCWrapper = styled.div`
   width: 100%;
   position: fixed;
   bottom: 0;
-  background: #343436;
+  background: ${(p) => p.theme.background.secondary};
 `
 
 interface ControlCenterProps {

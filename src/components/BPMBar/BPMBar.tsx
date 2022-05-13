@@ -1,4 +1,6 @@
 import { FC, useContext } from 'react'
+import AddLineIcon from 'remixicon-react/AddLineIcon'
+import SubtractLineIcon from 'remixicon-react/SubtractLineIcon'
 import styled from 'styled-components'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 
@@ -13,7 +15,9 @@ const BPMBarContainer = styled.div`
   background-color: ${(p) => p.theme.background.bpmBg};
   font-family: 'Fira Code';
   font-size: 2rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: ${(p) => p.theme.text.control};
+  border-top: ${(p) => p.theme.extra.bpmBorder};
+  border-bottom: ${(p) => p.theme.extra.bpmBorder};
 
   @media (max-height: 450px), (max-width: 300px) {
     font-size: 1.25rem;
@@ -41,6 +45,8 @@ const BPMAdjustmentButton = styled.div`
 `
 
 const BPMDisplay = styled.div`
+  color: ${(p) => p.theme.text.bpmDisplay};
+
   @media (max-height: 450px), (max-width: 300px) {
     width: 80vw;
   }
@@ -60,7 +66,7 @@ const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
           onTempoChange((bpm || 0) - 1)
         }}
       >
-        -
+        <SubtractLineIcon />
       </BPMAdjustmentButton>
       <BPMDisplay>{bpm?.toString() || 0}</BPMDisplay>
       <BPMAdjustmentButton
@@ -68,7 +74,7 @@ const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
           onTempoChange((bpm || 0) + 1)
         }}
       >
-        +
+        <AddLineIcon />
       </BPMAdjustmentButton>
     </BPMBarContainer>
   )

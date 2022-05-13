@@ -38,25 +38,25 @@ const Header = () => {
     <HeaderContainer>
       {muteSound ? (
         <VolumeMuteLineIcon
-          color={theme.text.primary}
+          color={theme.extra?.headerColor}
           size={24}
           onClick={() => setMuteSound?.(false)}
         />
       ) : (
         <VolumeLineIcon
-          color={theme.text.primary}
+          color={theme.extra?.headerColor}
           size={24}
           onClick={() => setMuteSound?.(true)}
         />
       )}
       <SettingsFillIcon
-        color={theme.text.primary}
+        color={theme.extra?.headerColor}
         size={24}
         onClick={() => setIsShowingSidebar?.(true)}
       />
       {!showMetronome && (
         <FullscreenLineIcon
-          color={theme.text.primary}
+          color={theme.extra?.headerColor}
           size={24}
           onClick={() => setShowMetronome?.(true)}
         />

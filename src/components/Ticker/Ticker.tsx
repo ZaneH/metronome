@@ -11,10 +11,10 @@ to {
     transform: rotate(.4rad);
 }`
 
-export const SwingArm = styled.div<{ bps?: number; playing: boolean }>`
+const SwingArm = styled.div<{ bps?: number; playing: boolean }>`
   width: 4px;
   height: 45vh;
-  background: white;
+  background: ${(p) => p.theme.extra.swingArm};
   border-radius: 1vh;
 
   ${({ playing, bps }) => {

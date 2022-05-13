@@ -64,7 +64,7 @@ const SidebarRow = styled.div`
 `
 
 const SidebarSubtext = styled.div`
-  color: rgba(255, 255, 255, 0.8);
+  color: ${(p) => p.theme.text.secondary};
   display: flex-inline;
 `
 

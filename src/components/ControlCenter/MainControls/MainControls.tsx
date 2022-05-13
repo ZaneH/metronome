@@ -3,6 +3,7 @@ import { FC } from 'react'
 import PlayFillIcon from 'remixicon-react/PlayFillIcon'
 import StopFillIcon from 'remixicon-react/StopFillIcon'
 import styled from 'styled-components'
+import { useTheme } from '../../ThemeProvider'
 
 const MainControlsContainer = styled.div`
   width: 100%;
@@ -28,18 +29,18 @@ const MainButton = styled.div`
   font-size: 1.5rem;
   text-transform: uppercase;
   border-radius: 50%;
-  color: ${(p) => p.theme.text.primary};
+  color: ${(p) => p.theme.text.control};
   width: 25vh;
   height: 25vh;
   max-width: 96px;
   max-height: 96px;
   display: inline-flex;
-  background: ${(p) => p.theme.background.primary};
+  background: ${(p) => p.theme.button.controlBg};
   text-align: center;
   justify-content: center;
   align-items: center;
   transition: background-color 20ms ease-out;
-  filter: drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.13));
+  filter: ${(p) => p.theme.button.dropShadow};
   &:active {
     background-color: ${(p) => p.theme.button.activeBg};
   }
@@ -65,14 +66,16 @@ const MainControls: FC<MainControlsProps> = ({
 }) => {
   const matches = useMediaQuery('(max-height: 450px), (max-width: 300px)')
   const iconSize = matches ? 24 : 36
+  const theme = useTheme()
+
   return (
     <MainControlsContainer>
       <MainButton onClick={handleTapTempo}>Tap</MainButton>
       <MainButton onClick={onPlay}>
         {isPlaying ? (
-          <StopFillIcon size={iconSize} />
+          <StopFillIcon size={iconSize} color={theme.text.control} />
         ) : (
-          <PlayFillIcon size={iconSize} />
+          <PlayFillIcon size={iconSize} color={theme.text.control} />
         )}
       </MainButton>
     </MainControlsContainer>
