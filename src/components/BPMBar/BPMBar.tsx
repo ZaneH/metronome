@@ -10,7 +10,7 @@ const BPMBarContainer = styled.div`
 
   width: 100%;
   text-align: center;
-  background-color: ${(p) => p.theme.dark.background.bpmBg};
+  background-color: ${(p) => p.theme.background.bpmBg};
   font-family: 'Fira Code';
   font-size: 2rem;
   color: rgba(255, 255, 255, 0.8);
@@ -29,7 +29,7 @@ const BPMAdjustmentButton = styled.div`
   align-items: center;
   width: 14vh;
   height: 100%;
-  background-color: ${(p) => p.theme.dark.button.secondaryBg};
+  background-color: ${(p) => p.theme.button.secondaryBg};
   &:hover {
     cursor: pointer;
   }

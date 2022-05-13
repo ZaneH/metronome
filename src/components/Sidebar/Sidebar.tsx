@@ -2,11 +2,11 @@ import { FC, useCallback, useContext, useMemo } from 'react'
 import CheckboxBlankLineIcon from 'remixicon-react/CheckboxBlankLineIcon'
 import CheckboxLineIcon from 'remixicon-react/CheckboxLineIcon'
 import CloseIcon from 'remixicon-react/CloseLineIcon'
-import styled, { keyframes, useTheme } from 'styled-components'
-import { CustomThemeType } from '../../App'
+import styled, { keyframes } from 'styled-components'
 import { SETTINGS, SETTING_KEY } from '../../utils/constants'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
+import { useTheme } from '../ThemeProvider'
 
 const FadeIn = keyframes`
 0% {
@@ -20,7 +20,7 @@ const FadeIn = keyframes`
 
 const SidebarContainer = styled.div`
   font-family: 'Inter', sans-serif;
-  color: ${(p) => p.theme.dark.text.primary};
+  color: ${(p) => p.theme.text.primary};
   padding: 28px 24px;
   width: 256px;
   height: 100%;
@@ -28,7 +28,7 @@ const SidebarContainer = styled.div`
   top: 0;
   bottom: 0;
   right: 0;
-  background-color: ${(p) => p.theme.dark.background.sidebar};
+  background-color: ${(p) => p.theme.background.sidebar};
   overflow-y: scroll;
   box-sizing: border-box;
 
@@ -75,8 +75,8 @@ const SidebarCheck = styled.div`
 const Button = styled.div`
   width: 100%;
   height: 44px;
-  background-color: ${(p) => p.theme.dark.button.primaryBg};
-  color: ${(p) => p.theme.dark.button.color};
+  background-color: ${(p) => p.theme.button.primaryBg};
+  color: ${(p) => p.theme.button.color};
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   letter-spacing: 0.01rem;
@@ -113,7 +113,7 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
     setCustomBackgroundColor,
     saveSetting,
   } = useContext(KVContext)
-  const theme = useTheme() as CustomThemeType
+  const theme = useTheme()
 
   const isChecked = useCallback(
     (key: SETTING_KEY) => {
@@ -200,12 +200,9 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
             <SidebarSubtext>{s.label}</SidebarSubtext>
             <SidebarCheck>
               {s.checked ? (
-                <CheckboxLineIcon color={theme.dark.text.primary} size={24} />
+                <CheckboxLineIcon color={theme.text.primary} size={24} />
               ) : (
-                <CheckboxBlankLineIcon
-                  color={theme.dark.text.primary}
-                  size={24}
-                />
+                <CheckboxBlankLineIcon color={theme.text.primary} size={24} />
               )}
             </SidebarCheck>
           </SidebarRow>

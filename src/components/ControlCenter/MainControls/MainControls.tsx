@@ -28,20 +28,20 @@ const MainButton = styled.div`
   font-size: 1.5rem;
   text-transform: uppercase;
   border-radius: 50%;
-  color: ${(p) => p.theme.dark.text.primary};
+  color: ${(p) => p.theme.text.primary};
   width: 25vh;
   height: 25vh;
   max-width: 96px;
   max-height: 96px;
   display: inline-flex;
-  background: ${(p) => p.theme.dark.background.primary};
+  background: ${(p) => p.theme.background.primary};
   text-align: center;
   justify-content: center;
   align-items: center;
   transition: background-color 20ms ease-out;
   filter: drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.13));
   &:active {
-    background-color: ${(p) => p.theme.dark.button.activeBg};
+    background-color: ${(p) => p.theme.button.activeBg};
   }
 
   @media (max-height: 450px), (max-width: 300px) {

@@ -1,5 +1,5 @@
 import { appWindow, LogicalSize } from '@tauri-apps/api/window'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import './App.css'
 import { KeyboardHandler } from './components/EventHandlers'
 import Header from './components/Header'
@@ -7,31 +7,10 @@ import KVContextProvider from './components/KVContextProvider'
 import { MetroContextProvider } from './components/MetroContextProvider'
 import Metronome from './components/Metronome'
 import Sidebar from './components/Sidebar'
-
-const theme = {
-  dark: {
-    background: {
-      primary: '#1f1f20',
-      secondary: '#343436',
-      sidebar: '#181819',
-      bpmBg: 'black',
-    },
-    button: {
-      primaryBg: 'white',
-      secondaryBg: '#2a2a2c',
-      activeBg: 'green',
-      color: 'black',
-    },
-    text: {
-      primary: 'white',
-    },
-  },
-}
-
-export type CustomThemeType = typeof theme
+import ThemeProvider from './components/ThemeProvider'
 
 const StyledApp = styled.div`
-  background-color: ${(p) => p.theme.dark.background.primary};
+  background-color: ${(p) => p.theme.background.primary};
 `
 
 function App() {
@@ -39,7 +18,7 @@ function App() {
   appWindow.setMinSize(new LogicalSize(350, 500))
 
   return (
-    <ThemeProvider theme={theme as CustomThemeType}>
+    <ThemeProvider>
       <StyledApp className='App'>
         <MetroContextProvider>
           <KVContextProvider>

@@ -3,10 +3,10 @@ import FullscreenLineIcon from 'remixicon-react/FullscreenLineIcon'
 import SettingsFillIcon from 'remixicon-react/Settings3FillIcon'
 import VolumeMuteLineIcon from 'remixicon-react/VolumeMuteLineIcon'
 import VolumeLineIcon from 'remixicon-react/VolumeUpLineIcon'
-import styled, { useTheme } from 'styled-components'
-import { CustomThemeType } from '../../App'
+import styled from 'styled-components'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
+import { useTheme } from '../ThemeProvider'
 
 const HeaderContainer = styled.div`
   position: absolute;
@@ -32,31 +32,31 @@ const Header = () => {
   const { setIsShowingSidebar } = useContext(MetroContext)
   const { muteSound, setMuteSound, showMetronome, setShowMetronome } =
     useContext(KVContext)
-  const theme = useTheme() as CustomThemeType
+  const theme = useTheme()
 
   return (
     <HeaderContainer>
       {muteSound ? (
         <VolumeMuteLineIcon
-          color={theme.dark.text.primary}
+          color={theme.text.primary}
           size={24}
           onClick={() => setMuteSound?.(false)}
         />
       ) : (
         <VolumeLineIcon
-          color={theme.dark.text.primary}
+          color={theme.text.primary}
           size={24}
           onClick={() => setMuteSound?.(true)}
         />
       )}
       <SettingsFillIcon
-        color={theme.dark.text.primary}
+        color={theme.text.primary}
         size={24}
         onClick={() => setIsShowingSidebar?.(true)}
       />
       {!showMetronome && (
         <FullscreenLineIcon
-          color={theme.dark.text.primary}
+          color={theme.text.primary}
           size={24}
           onClick={() => setShowMetronome?.(true)}
         />
