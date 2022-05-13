@@ -15,12 +15,14 @@ import { SETTINGS, SETTING_KEY } from '../../utils/constants'
 type KVContextType = {
   children?: React.ReactNode
 
+  isLoading?: boolean
   showMetronome?: boolean
   muteSound?: boolean
   blinkOnTick?: boolean
   darkMode?: boolean
   customBackgroundColor?: boolean
 
+  setIsLoading?: Dispatch<SetStateAction<boolean>>
   setShowMetronome?: Dispatch<SetStateAction<boolean>>
   setMuteSound?: Dispatch<SetStateAction<boolean>>
   setBlinkOnTick?: Dispatch<SetStateAction<boolean>>
@@ -43,18 +45,18 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
   const [blinkOnTick, setBlinkOnTick] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
   const [customBackgroundColor, setCustomBackgroundColor] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   /**
    * Store value on-disk
    */
   const saveSetting = useCallback(
     (key: SETTING_KEY, value: any) => {
-      if (!isLoaded) return
+      if (isLoading) return
       store.set(key, value)
       store.save()
     },
-    [store, isLoaded]
+    [store, isLoading]
   )
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
   }, [muteSound, saveSetting])
 
   /**
-   * Map settings stored on disk into the KVContextProvider's state
+   * Map settings stored on-disk into the KVContextProvider's state
    */
   const loadSettingIntoState = useCallback(
     async (key: SETTING_KEY) => {
@@ -116,21 +118,23 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
   useEffect(() => {
     store
       .load()
-      .then(() => {
+      .then(async () => {
         for (const key in SETTINGS) {
-          loadSettingIntoState(key as SETTING_KEY)
+          await loadSettingIntoState(key as SETTING_KEY)
         }
       })
       .catch((e) => console.error(e))
-      .finally(() => setIsLoaded(true))
-  }, [store, loadSettingIntoState])
+      .finally(() => setIsLoading(false))
+  }, [store, loadSettingIntoState, setIsLoading])
 
   const context: KVContextType = {
+    isLoading,
     showMetronome,
     muteSound,
     blinkOnTick,
     darkMode,
     customBackgroundColor,
+    setIsLoading,
     setShowMetronome,
     setMuteSound,
     setBlinkOnTick,
@@ -139,7 +143,11 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
     saveSetting,
   }
 
-  return <KVContext.Provider value={context}>{children}</KVContext.Provider>
+  return (
+    <KVContext.Provider value={context}>
+      {!isLoading && children}
+    </KVContext.Provider>
+  )
 }
 
 export default KVContextProvider
