@@ -14,7 +14,8 @@ const MainControlsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 56px;
-  *:hover {
+
+  * {
     cursor: pointer;
   }
 

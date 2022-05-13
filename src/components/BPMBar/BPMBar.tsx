@@ -34,7 +34,8 @@ const BPMAdjustmentButton = styled.div`
   width: 14vh;
   height: 100%;
   background-color: ${(p) => p.theme.button.secondaryBg};
-  &:hover {
+
+  * {
     cursor: pointer;
   }
 
