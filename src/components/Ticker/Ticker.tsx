@@ -14,7 +14,7 @@ to {
 const SwingArm = styled.div<{ bps?: number; playing: boolean }>`
   width: 4px;
   height: 45vh;
-  background: ${(p) => p.theme.extra.swingArm};
+  background: ${(p) => p.theme.extra.swingArmBg};
   border-radius: 1vh;
 
   ${({ playing, bps }) => {

@@ -1,4 +1,11 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react'
 import TempoTapper from '../../utils/TempoTapper'
 
 type MetroContextType = {
@@ -11,20 +18,19 @@ type MetroContextType = {
   setBpm?: Dispatch<SetStateAction<number>>
   setIsPlaying?: Dispatch<SetStateAction<boolean>>
   setIsShowingSidebar?: Dispatch<SetStateAction<boolean>>
-  setTapper?: Dispatch<SetStateAction<TempoTapper>>
 }
 
 export const MetroContext = createContext({} as MetroContextType)
 
 /**
  * Contains the high-level state. Keep this context limited to
- * variables that need to be accessed globally.
+ * variables that need to be accessed globally (but not persisted).
  */
 const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
   const [bpm, setBpm] = useState(120)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isShowingSidebar, setIsShowingSidebar] = useState(false)
-  const [tapper, setTapper] = useState(new TempoTapper())
+  const tapper = useMemo(() => new TempoTapper(), [])
 
   const context: MetroContextType = {
     bpm,
@@ -35,7 +41,6 @@ const MetroContextProvider: FC<MetroContextType> = ({ children }) => {
     setBpm,
     setIsPlaying,
     setIsShowingSidebar,
-    setTapper,
   }
 
   return (

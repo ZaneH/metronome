@@ -28,7 +28,7 @@ type MetronomeThemeType = {
   }
   extra?: {
     bpmBorder: string
-    swingArm: string
+    swingArmBg: string
     headerColor: string
   }
 }
@@ -57,7 +57,7 @@ const theme: { [key in 'dark' | 'light']: MetronomeThemeType } = {
     },
     extra: {
       bpmBorder: 'none',
-      swingArm: 'white',
+      swingArmBg: 'white',
       headerColor: 'white',
     },
   },
@@ -84,7 +84,7 @@ const theme: { [key in 'dark' | 'light']: MetronomeThemeType } = {
     },
     extra: {
       bpmBorder: 'none',
-      swingArm: 'black',
+      swingArmBg: 'black',
       headerColor: '#4F4E4C',
     },
   },
@@ -109,7 +109,6 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   return (
     <ThemeContext.Provider
       value={{
-        ...ThemeContext,
         darkMode,
         setDarkMode,
       }}

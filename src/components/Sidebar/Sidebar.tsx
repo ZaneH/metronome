@@ -148,10 +148,6 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
     [isChecked]
   )
 
-  if (!isShowingSidebar) {
-    return null
-  }
-
   const handleRowClick = (key: SETTING_KEY, checked?: boolean) => {
     switch (key) {
       case 'show-metronome':
@@ -172,6 +168,10 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
         saveSetting?.('custom-background-color', checked!)
         break
     }
+  }
+
+  if (!isShowingSidebar) {
+    return null
   }
 
   return (

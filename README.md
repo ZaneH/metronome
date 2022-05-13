@@ -1,20 +1,25 @@
-# Metronome
+# A Metronome
 
-A metronome built with Tauri.
+Jam packed and cross-platform. What could be more exciting?!
 
 ### Hotkeys
 
 |  **Key**  |       **Function**       |
 | :-------: | :----------------------: |
 | Spacebar  |       Toggle play        |
-|  Escape   |      Close settings      |
-| Backspace |         Edit BPM         |
+|     d     |     Toggle dark mode     |
+|     f     | Toggle metronome display |
+|     m     |       Toggle mute        |
+|     s     |     Toggle settings      |
+|     t     |        Tap tempo         |
 |    0-9    |         Edit BPM         |
 |   ←↑→↓    |         Edit BPM         |
-|     m     |       Toggle mute        |
-|     t     |        Tap tempo         |
-|     f     | Toggle metronome display |
-|     s     |     Toggle settings      |
+| Backspace |         Edit BPM         |
+|  Escape   |      Close settings      |
+
+## Releases
+
+The latest release can be found [here](https://github.com/ZaneH/metronome/releases).
 
 ## Running locally
 
@@ -35,10 +40,6 @@ yarn && yarn tauri dev
 ```bash
 yarn tauri build
 ```
-
-## Releases
-
-The latest release can be found [here](https://github.com/ZaneH/metronome/releases).
 
 ## Formatting
 

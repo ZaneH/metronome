@@ -1,6 +1,7 @@
 export type SETTING_KEY = keyof typeof SETTINGS
 
 export const SETTINGS = {
+  // Key: Label
   'show-metronome': 'Show metronome',
   'dark-mode': 'Dark mode',
   'change-theme': 'Change Theme',

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { default as LibMetronome } from '../../utils/Metronome/metronome'
 import { ControlCenter } from '../ControlCenter'
@@ -36,7 +36,7 @@ const markBounce = keyframes`
 const MiddleMark = styled.div<{
   playing: boolean
   bps: number
-  hidden?: boolean
+  visible?: boolean
 }>`
   ${({ playing, bps }) =>
     playing &&
@@ -44,15 +44,15 @@ const MiddleMark = styled.div<{
       animation: ${markBounce} ${bps}s linear infinite;
     `}
 
-  ${({ hidden }) =>
-    hidden &&
+  ${({ visible }) =>
+    !visible &&
     css`
       display: none;
     `}
 
   position: absolute;
   border-radius: 50%;
-  background-color: ${(p) => p.theme.extra.swingArm};
+  background-color: ${(p) => p.theme.extra.swingArmBg};
   width: 1.5vh;
   height: 1.5vh;
   top: 12vh;
@@ -63,7 +63,6 @@ const MiddleMark = styled.div<{
 `
 
 const Metronome = () => {
-  const [hasStarted, setHasStarted] = useState(false)
   const {
     bpm,
     setBpm,
@@ -72,10 +71,6 @@ const Metronome = () => {
     tapper,
   } = useContext(MetroContext)
   const { blinkOnTick, muteSound, showMetronome } = useContext(KVContext)
-
-  useEffect(() => {
-    setHasStarted?.(isPlaying)
-  }, [isPlaying])
 
   return (
     <LibMetronome
@@ -101,7 +96,7 @@ const Metronome = () => {
               <MiddleMark
                 playing={playing}
                 bps={60 / (bpm || 0)}
-                hidden={!blinkOnTick}
+                visible={blinkOnTick}
               />
             )}
             {showMetronome && (
@@ -119,9 +114,6 @@ const Metronome = () => {
                 setBpm?.(tempo)
               }}
               onPlay={() => {
-                if (!hasStarted) {
-                  setHasStarted(true)
-                }
                 setIsPlaying?.(!isPlaying)
                 onPlay()
               }}
