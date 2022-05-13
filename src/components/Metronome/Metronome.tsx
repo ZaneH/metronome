@@ -111,6 +111,10 @@ const Metronome = () => {
             )}
             <ControlCenter
               onTempoChange={(tempo: number) => {
+                if (tempo < 0) {
+                  return
+                }
+
                 onTempoChange(tempo)
                 setBpm?.(tempo)
               }}

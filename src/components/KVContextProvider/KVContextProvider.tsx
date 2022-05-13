@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react'
 import { Store } from 'tauri-plugin-store-api'
-import { SETTING_KEY } from '../../utils/constants'
+import { SETTINGS, SETTING_KEY } from '../../utils/constants'
 
 type KVContextType = {
   children?: React.ReactNode
@@ -34,24 +34,49 @@ export const KVContext = createContext({} as KVContextType)
 
 /**
  * Responsible for providing persistant storage and reacting to
- * modified states (a.k.a. settings)
+ * modified states (Settings)
  */
 const KVContextProvider: FC<KVContextType> = ({ children }) => {
+  const store = useMemo(() => new Store('.settings.dat'), [])
   const [showMetronome, setShowMetronome] = useState(true)
   const [muteSound, setMuteSound] = useState(false)
   const [blinkOnTick, setBlinkOnTick] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
   const [customBackgroundColor, setCustomBackgroundColor] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  const store = useMemo(() => new Store('.settings.dat'), [])
+  /**
+   * Store value on-disk
+   */
+  const saveSetting = useCallback(
+    (key: SETTING_KEY, value: any) => {
+      if (!isLoaded) return
+      store.set(key, value)
+      store.save()
+    },
+    [store, isLoaded]
+  )
 
   useEffect(() => {
     const biggerSize = new LogicalSize(350, 500)
     const smallerSize = new LogicalSize(300, 200)
     appWindow.setSize(showMetronome ? biggerSize : smallerSize)
     appWindow.setMinSize(showMetronome ? biggerSize : smallerSize)
-  }, [showMetronome])
 
+    saveSetting('show-metronome', showMetronome)
+  }, [showMetronome, saveSetting])
+
+  useEffect(() => {
+    saveSetting('dark-mode', darkMode)
+  }, [darkMode, saveSetting])
+
+  useEffect(() => {
+    saveSetting('mute-sound', muteSound)
+  }, [muteSound, saveSetting])
+
+  /**
+   * Map settings stored on disk into the KVContextProvider's state
+   */
   const loadSettingIntoState = useCallback(
     async (key: SETTING_KEY) => {
       const value = Boolean(await store.get(key))
@@ -84,26 +109,21 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
     ]
   )
 
+  /**
+   * We want to fetch all of the settings stored on-disk and
+   * load them into the state when KVContextProvider is mounted
+   */
   useEffect(() => {
     store
       .load()
       .then(() => {
-        loadSettingIntoState('show-metronome')
-        loadSettingIntoState('mute-sound')
-        loadSettingIntoState('blink-on-tick')
-        loadSettingIntoState('dark-mode')
-        loadSettingIntoState('custom-background-color')
+        for (const key in SETTINGS) {
+          loadSettingIntoState(key as SETTING_KEY)
+        }
       })
       .catch((e) => console.error(e))
+      .finally(() => setIsLoaded(true))
   }, [store, loadSettingIntoState])
-
-  const saveSetting = useCallback(
-    (key: SETTING_KEY, value: any) => {
-      store.set(key, value)
-      store.save()
-    },
-    [store]
-  )
 
   const context: KVContextType = {
     showMetronome,

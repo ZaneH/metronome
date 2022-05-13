@@ -23,7 +23,7 @@ const KeyboardHandler = () => {
   } = useContext(KVContext)
 
   const decrementBpm = useCallback(() => {
-    setBpm?.(Number(bpm) - 1)
+    bpm > 0 && setBpm?.(Number(bpm) - 1)
   }, [bpm, setBpm])
 
   const incrementBpm = useCallback(() => {

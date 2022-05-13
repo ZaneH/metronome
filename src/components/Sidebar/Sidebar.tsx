@@ -156,11 +156,9 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
     switch (key) {
       case 'show-metronome':
         setShowMetronome?.(checked!)
-        saveSetting?.('show-metronome', checked!)
         break
       case 'mute-sound':
         setMuteSound?.(checked!)
-        saveSetting?.('mute-sound', checked!)
         break
       case 'blink-on-tick':
         setBlinkOnTick?.(checked!)
@@ -168,7 +166,6 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
         break
       case 'dark-mode':
         setDarkMode?.(checked!)
-        saveSetting?.('dark-mode', checked!)
         break
       case 'custom-background-color':
         setCustomBackgroundColor?.(checked!)
