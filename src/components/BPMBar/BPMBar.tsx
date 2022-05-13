@@ -13,7 +13,7 @@ const BPMBarContainer = styled.div`
   width: 100%;
   text-align: center;
   background-color: ${(p) => p.theme.background.bpmBg};
-  font-family: 'Fira Code';
+  font-family: 'Fira Mono', monospace;
   font-size: 2rem;
   color: ${(p) => p.theme.text.control};
   border-top: ${(p) => p.theme.extra.bpmBorder};
@@ -26,7 +26,7 @@ const BPMBarContainer = styled.div`
 `
 
 const BPMAdjustmentButton = styled.div`
-  font-family: 'Fira Code';
+  font-family: 'Fira Mono', monospace;
   font-size: 2.2rem;
   display: flex;
   justify-content: center;
