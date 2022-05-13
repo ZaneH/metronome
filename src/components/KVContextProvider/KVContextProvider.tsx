@@ -20,6 +20,7 @@ type KVContextType = {
   blinkOnTick?: boolean
   darkMode?: boolean
   customBackgroundColor?: boolean
+
   setShowMetronome?: Dispatch<SetStateAction<boolean>>
   setMuteSound?: Dispatch<SetStateAction<boolean>>
   setBlinkOnTick?: Dispatch<SetStateAction<boolean>>

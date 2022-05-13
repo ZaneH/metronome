@@ -18,18 +18,18 @@ function App() {
   appWindow.setMinSize(new LogicalSize(350, 500))
 
   return (
-    <ThemeProvider>
-      <StyledApp className='App'>
-        <MetroContextProvider>
-          <KVContextProvider>
+    <KVContextProvider>
+      <ThemeProvider>
+        <StyledApp className='App'>
+          <MetroContextProvider>
             <Header />
             <KeyboardHandler />
             <Metronome />
             <Sidebar title='Settings' />
-          </KVContextProvider>
-        </MetroContextProvider>
-      </StyledApp>
-    </ThemeProvider>
+          </MetroContextProvider>
+        </StyledApp>
+      </ThemeProvider>
+    </KVContextProvider>
   )
 }
 

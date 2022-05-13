@@ -1,8 +1,9 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
+import { createContext, Dispatch, FC, SetStateAction, useContext } from 'react'
 import {
   ThemeProvider as SCThemeProvider,
   useTheme as useSCTheme,
 } from 'styled-components'
+import { KVContext } from '../KVContextProvider/KVContextProvider'
 
 type MetronomeThemeType = {
   background: {
@@ -94,26 +95,26 @@ interface ThemeProviderProps {
 }
 
 type ThemeContextType = {
-  isDarkMode: boolean
+  darkMode?: boolean
 
-  setIsDarkMode: Dispatch<SetStateAction<boolean>>
+  setDarkMode?: Dispatch<SetStateAction<boolean>>
 }
 
 export const ThemeContext = createContext({} as ThemeContextType)
 export const useTheme = () => useSCTheme() as MetronomeThemeType
 
 const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const { darkMode, setDarkMode } = useContext(KVContext)
 
   return (
     <ThemeContext.Provider
       value={{
         ...ThemeContext,
-        isDarkMode,
-        setIsDarkMode,
+        darkMode,
+        setDarkMode,
       }}
     >
-      <SCThemeProvider theme={isDarkMode ? theme.dark : theme.light}>
+      <SCThemeProvider theme={darkMode ? theme.dark : theme.light}>
         {children}
       </SCThemeProvider>
     </ThemeContext.Provider>
