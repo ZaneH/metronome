@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@react-hook/media-query'
 import { FC, useContext } from 'react'
 import AddLineIcon from 'remixicon-react/AddLineIcon'
 import SubtractLineIcon from 'remixicon-react/SubtractLineIcon'
@@ -34,6 +35,7 @@ const BPMAdjustmentButton = styled.div`
   width: 14vh;
   height: 100%;
   background-color: ${(p) => p.theme.button.secondaryBg};
+  cursor: pointer;
 
   * {
     cursor: pointer;
@@ -59,6 +61,8 @@ interface BPMBarProps {
 
 const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
   const { bpm } = useContext(MetroContext)
+  const matches = useMediaQuery('(max-height: 450px), (max-width: 300px)')
+  const iconSize = matches ? 24 : 33
 
   return (
     <BPMBarContainer>
@@ -67,7 +71,7 @@ const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
           onTempoChange((bpm || 0) - 1)
         }}
       >
-        <SubtractLineIcon />
+        <SubtractLineIcon size={iconSize} />
       </BPMAdjustmentButton>
       <BPMDisplay>{bpm?.toString() || 0}</BPMDisplay>
       <BPMAdjustmentButton
@@ -75,7 +79,7 @@ const BPMBar: FC<BPMBarProps> = ({ onTempoChange }) => {
           onTempoChange((bpm || 0) + 1)
         }}
       >
-        <AddLineIcon />
+        <AddLineIcon size={iconSize} />
       </BPMAdjustmentButton>
     </BPMBarContainer>
   )
