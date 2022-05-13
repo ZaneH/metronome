@@ -24,24 +24,24 @@ const MainControlsContainer = styled.div`
 `
 
 const MainButton = styled.div`
-  font-family: 'Fira Code';
+  font-family: 'Fira Code', monospace;
   font-size: 1.5rem;
   text-transform: uppercase;
   border-radius: 50%;
-  color: white;
+  color: ${(p) => p.theme.dark.text.primary};
   width: 25vh;
   height: 25vh;
   max-width: 96px;
   max-height: 96px;
   display: inline-flex;
-  background: #1f1f20;
+  background: ${(p) => p.theme.dark.background.primary};
   text-align: center;
   justify-content: center;
   align-items: center;
   transition: background-color 20ms ease-out;
   filter: drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.13));
   &:active {
-    background-color: green;
+    background-color: ${(p) => p.theme.dark.button.activeBg};
   }
 
   @media (max-height: 450px), (max-width: 300px) {
