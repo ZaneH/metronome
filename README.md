@@ -23,22 +23,18 @@ The latest release can be found [here](https://github.com/ZaneH/metronome/releas
 
 ## Running locally
 
-### Clone repository
-
 ```bash
-git clone git@github.com:ZaneH/metronome.git
+$ git clone git@github.com:ZaneH/metronome.git
+$ cd metronome
+$ yarn && yarn tauri dev
 ```
 
-### Install dependencies and run project
+## Build target binary
+
+Outputs to `/src-tauri/target/release/bundle`
 
 ```bash
-yarn && yarn tauri dev
-```
-
-### Build target binary
-
-```bash
-yarn tauri build
+$ yarn tauri build
 ```
 
 ## Formatting
