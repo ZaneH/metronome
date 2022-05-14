@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/S5SZAeC.png" align="right" height="64px" width="64px">
+<img src="https://i.imgur.com/S5SZAeC.png" align="right" height="52px" width="52px">
 
 # The Minimal Metronome
 
