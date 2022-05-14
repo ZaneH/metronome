@@ -1,18 +1,22 @@
-<img src="https://i.imgur.com/S5SZAeC.png" align="right" height="52px" width="52px">
-
 # The Minimal Metronome
 
-[Visit the website](https://metronome-www.vercel.app)
+[Visit the landing page](https://metronome-www.vercel.app)
 
-A feature packed and cross-platform metronome. What could be more exciting?!
+## Features
 
-Built using Tauri + React.
+- [x] Tempo tapper
+- [ ] Time signatures
+- [x] Keyboard support
+- [x] Fullscreen and a mini-mode
+- [x] Cross-platform support
+- [x] Dark mode and light mode
+- [ ] Custom themes
 
-## Releases
+# Releases
 
 The latest release can be found [here](https://github.com/ZaneH/metronome/releases).
 
-## Running locally
+## Run Locally
 
 ```bash
 $ git clone git@github.com:ZaneH/metronome.git
@@ -20,7 +24,7 @@ $ cd metronome
 $ yarn && yarn tauri dev
 ```
 
-### Build target binary
+## Build target binary
 
 Outputs to `/src-tauri/target/release/bundle`
 
@@ -28,15 +32,15 @@ Outputs to `/src-tauri/target/release/bundle`
 $ yarn tauri build
 ```
 
-## Contributions
+# Contributions
 
 Contributions are welcome! Create a PR or issue to get started.
 
-### Formatting
+## Formatting
 
 Code is auto-formatted when committed using `.prettierrc`.
 
-## Metronome Hotkeys
+# Hotkeys
 
 |  **Key**  |       **Function**       |
 | :-------: | :----------------------: |
