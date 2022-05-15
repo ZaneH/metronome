@@ -5,7 +5,7 @@
 ## Features
 
 - [x] Tempo tapper
-- [ ] Time signatures
+- [x] Time signatures
 - [x] Keyboard support
 - [x] Fullscreen and a mini-mode
 - [x] Cross-platform support
