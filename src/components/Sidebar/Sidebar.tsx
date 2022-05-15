@@ -3,7 +3,7 @@ import CheckboxBlankLineIcon from 'remixicon-react/CheckboxBlankLineIcon'
 import CheckboxLineIcon from 'remixicon-react/CheckboxLineIcon'
 import CloseIcon from 'remixicon-react/CloseLineIcon'
 import styled, { keyframes } from 'styled-components'
-import { SETTINGS, SETTING_KEY } from '../../utils/constants'
+import { MetroSettingType, SETTINGS } from '../../utils'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 import { useTheme } from '../ThemeProvider'
@@ -116,7 +116,7 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
   const theme = useTheme()
 
   const isChecked = useCallback(
-    (key: SETTING_KEY) => {
+    (key: MetroSettingType) => {
       switch (key) {
         case 'show-metronome':
           return showMetronome
@@ -141,14 +141,14 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
         (k: string) =>
           ({
             key: k,
-            label: SETTINGS[k as SETTING_KEY],
-            checked: isChecked(k as SETTING_KEY),
+            label: SETTINGS[k as MetroSettingType],
+            checked: isChecked(k as MetroSettingType),
           } as SettingItem)
       ),
     [isChecked]
   )
 
-  const handleRowClick = (key: SETTING_KEY, checked?: boolean) => {
+  const handleRowClick = (key: MetroSettingType, checked?: boolean) => {
     switch (key) {
       case 'show-metronome':
         setShowMetronome?.(checked!)
@@ -187,12 +187,14 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
         />
       </SidebarTitle>
       {settingItems.map((s) =>
-        (s.key as SETTING_KEY) === 'change-theme' ? (
+        (s.key as MetroSettingType) === 'change-theme' ? (
           <Button key={s.key}>{s.label}</Button>
         ) : (
           <SidebarRow
             key={s.key}
-            onClick={() => handleRowClick(s.key as SETTING_KEY, !s.checked)}
+            onClick={() =>
+              handleRowClick(s.key as MetroSettingType, !s.checked)
+            }
           >
             <SidebarSubtext>{s.label}</SidebarSubtext>
             <SidebarCheck>

@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react'
 import { Store } from 'tauri-plugin-store-api'
-import { SETTINGS, SETTING_KEY } from '../../utils/constants'
+import { MetroSettingType, SETTINGS } from '../../utils'
 
 type KVContextType = {
   children?: React.ReactNode
@@ -29,7 +29,7 @@ type KVContextType = {
   setDarkMode?: Dispatch<SetStateAction<boolean>>
   setCustomBackgroundColor?: Dispatch<SetStateAction<boolean>>
 
-  saveSetting?: (key: SETTING_KEY, value: any) => void
+  saveSetting?: (key: MetroSettingType, value: any) => void
 }
 
 export const KVContext = createContext({} as KVContextType)
@@ -51,7 +51,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
    * Store value on-disk
    */
   const saveSetting = useCallback(
-    (key: SETTING_KEY, value: any) => {
+    (key: MetroSettingType, value: any) => {
       if (isLoading) return
       store.set(key, value)
       store.save()
@@ -80,7 +80,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
    * Map settings stored on-disk into the KVContextProvider's state
    */
   const loadSettingIntoState = useCallback(
-    async (key: SETTING_KEY) => {
+    async (key: MetroSettingType) => {
       const value = Boolean(await store.get(key))
 
       switch (key) {
@@ -120,7 +120,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
       .load()
       .then(async () => {
         for (const key in SETTINGS) {
-          await loadSettingIntoState(key as SETTING_KEY)
+          await loadSettingIntoState(key as MetroSettingType)
         }
       })
       .catch((e) => console.error(e))

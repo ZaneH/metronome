@@ -1,5 +1,6 @@
 import useEventListener from '@use-it/event-listener'
 import { useCallback, useContext } from 'react'
+import { validBpm } from '../../utils'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
 
@@ -23,11 +24,13 @@ const KeyboardHandler = () => {
   } = useContext(KVContext)
 
   const decrementBpm = useCallback(() => {
-    bpm > 0 && setBpm?.(Number(bpm) - 1)
+    const newVal = Number(bpm) - 1
+    validBpm(newVal) && setBpm?.(newVal)
   }, [bpm, setBpm])
 
   const incrementBpm = useCallback(() => {
-    setBpm?.(Number(bpm) + 1)
+    const newVal = Number(bpm) + 1
+    validBpm(newVal) && setBpm?.(newVal)
   }, [bpm, setBpm])
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -43,7 +46,8 @@ const KeyboardHandler = () => {
         setBpm?.(Number(bpmS.substring(0, bpmS.length - 1)))
       }
     } else if (key.match(/[0-9]/)) {
-      setBpm?.(Number(bpmS.concat(key)))
+      const newVal = Number(bpmS.concat(key))
+      validBpm(newVal) && setBpm?.(newVal)
     } else if (key.match(/Arrow(Down|Up|Left|Right)/)) {
       switch (key) {
         case 'ArrowUp':

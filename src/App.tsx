@@ -1,7 +1,7 @@
 import { appWindow, LogicalSize } from '@tauri-apps/api/window'
 import styled from 'styled-components'
 import './App.css'
-import { KeyboardHandler } from './components/EventHandlers'
+import { KeyboardHandler, MouseHandler } from './components/EventHandlers'
 import Header from './components/Header'
 import KVContextProvider from './components/KVContextProvider'
 import { MetroContextProvider } from './components/MetroContextProvider'
@@ -24,6 +24,7 @@ function App() {
           <MetroContextProvider>
             <Header />
             <KeyboardHandler />
+            <MouseHandler />
             <Metronome />
             <Sidebar title='Settings' />
           </MetroContextProvider>

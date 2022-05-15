@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { default as LibMetronome } from '../../utils/Metronome/metronome'
+import * as Tone from 'tone'
+import { TIME_SIGNATURES, validBpm } from '../../utils'
 import { ControlCenter } from '../ControlCenter'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
@@ -65,69 +66,125 @@ const MiddleMark = styled.div<{
 const Metronome = () => {
   const {
     bpm,
+    timeSignature = 0,
     setBpm,
     isPlaying = false,
     setIsPlaying,
     tapper,
   } = useContext(MetroContext)
   const { blinkOnTick, muteSound, showMetronome } = useContext(KVContext)
+  const tickerRef = useRef(0)
+  const [beatsPerMeasure, beatUnit] = TIME_SIGNATURES[timeSignature]
+
+  const o1 = useMemo(
+    () =>
+      Tone.Offline(() => {
+        const ampEnv = new Tone.AmplitudeEnvelope(0.01, 0.02, 1, 0.2)
+        new Tone.Oscillator('C5', 'sine')
+          .connect(ampEnv)
+          .toDestination()
+          .start()
+          .stop('+0.1')
+      }, 0.1),
+    []
+  )
+
+  const o2 = useMemo(
+    () =>
+      Tone.Offline(() => {
+        const ampEnv = new Tone.AmplitudeEnvelope(0.01, 0.02, 1, 0.2)
+        new Tone.Oscillator('C4', 'sine')
+          .connect(ampEnv)
+          .toDestination()
+          .start()
+          .stop('+0.1')
+      }, 0.1),
+    []
+  )
+
+  const tone1 = useMemo(
+    () => o1.then((o) => new Tone.Player(o).toDestination()),
+    [o1]
+  )
+
+  const tone2 = useMemo(
+    () => o2.then((o) => new Tone.Player(o).toDestination()),
+    [o2]
+  )
+
+  const handleTick = useCallback(() => {
+    const id = Tone.Transport.scheduleRepeat((time) => {
+      const tick = Tone.Transport.getTicksAtTime(time) / Tone.Transport.PPQ
+      if (tick % beatsPerMeasure === 0) {
+        tone1.then((p) => {
+          p.fadeIn = 0.005
+          p.fadeOut = 0.012
+          p.start(time).stop(time + 0.1)
+        })
+      } else {
+        tone2.then((p) => {
+          p.fadeIn = 0.005
+          p.fadeOut = 0.012
+          p.start(time).stop(time + 0.1)
+        })
+      }
+    }, `${beatUnit}n`)
+
+    tickerRef.current = id
+  }, [beatsPerMeasure, beatUnit, tone1, tone2, tickerRef])
+
+  useEffect(() => {
+    Tone.Transport.set({
+      bpm: bpm,
+      timeSignature: beatsPerMeasure / beatUnit,
+    })
+  }, [bpm, beatsPerMeasure, beatUnit])
+
+  useEffect(() => {
+    Tone.Transport.stop()
+    Tone.Transport.clear(tickerRef.current)
+
+    if (isPlaying && !muteSound) {
+      handleTick()
+      Tone.Transport.start()
+    } else {
+      Tone.Transport.stop()
+      Tone.Transport.clear(tickerRef.current)
+    }
+  }, [isPlaying, muteSound, handleTick, tickerRef, bpm])
 
   return (
-    <LibMetronome
-      key={`${bpm}-${isPlaying}-${blinkOnTick}`}
-      tempo={bpm}
-      autoplay={isPlaying}
-      beatVolume={muteSound ? 0 : 1}
-      render={({
-        playing,
-        onPlay,
-        onTempoChange,
-      }: {
-        tempo: number
-        beatsPerMeasure: number
-        playing: boolean
-        beat: number
-        onPlay: () => void
-        onTempoChange: (tempo: number) => void
-      }) => {
-        return (
-          <>
-            {showMetronome && (
-              <MiddleMark
-                playing={playing}
-                bps={60 / (bpm || 0)}
-                visible={blinkOnTick}
-              />
-            )}
-            {showMetronome && (
-              <TickerWrapper>
-                <Ticker isPlaying={playing} />
-              </TickerWrapper>
-            )}
-            <ControlCenter
-              onTempoChange={(tempo: number) => {
-                if (tempo < 0) {
-                  return
-                }
+    <div key={`${bpm}-${isPlaying}-${blinkOnTick}-${timeSignature}`}>
+      {showMetronome && (
+        <MiddleMark
+          playing={isPlaying}
+          bps={60 / (bpm || 0)}
+          visible={blinkOnTick}
+        />
+      )}
+      {showMetronome && (
+        <TickerWrapper>
+          <Ticker isPlaying={isPlaying} />
+        </TickerWrapper>
+      )}
+      <ControlCenter
+        onTempoChange={(tempo: number) => {
+          if (!validBpm(tempo)) {
+            return
+          }
 
-                onTempoChange(tempo)
-                setBpm?.(tempo)
-              }}
-              onPlay={() => {
-                setIsPlaying?.(!isPlaying)
-                onPlay()
-              }}
-              isPlaying={playing}
-              handleTapTempo={() => {
-                tapper?.tap()
-                onTempoChange(tapper?.bpm)
-                setBpm?.(tapper?.bpm)
-              }}
-            />
-          </>
-        )
-      }}
-    />
+          setBpm?.(tempo)
+        }}
+        onPlay={() => {
+          setIsPlaying?.(!isPlaying)
+        }}
+        isPlaying={isPlaying}
+        handleTapTempo={() => {
+          tapper?.tap()
+          setBpm?.(tapper?.bpm)
+        }}
+      />
+    </div>
   )
 }
 
