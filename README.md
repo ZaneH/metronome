@@ -12,6 +12,12 @@
 - [x] Dark mode and light mode
 - [ ] Custom themes
 
+<br />
+
+<div align="center"><img height="300px" src="https://i.imgur.com/fYn7lqM.png" /></div>
+
+<br />
+
 # Releases
 
 The latest release can be found [here](https://github.com/ZaneH/metronome/releases).
