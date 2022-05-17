@@ -14,7 +14,7 @@
 
 <br />
 
-<div align="center"><img height="300px" src="https://i.imgur.com/fYn7lqM.png" /></div>
+<div align="center"><img height="375px" src="https://i.imgur.com/fYn7lqM.png" /></div>
 
 <br />
 
