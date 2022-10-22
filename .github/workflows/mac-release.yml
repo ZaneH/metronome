@@ -13,6 +13,10 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Reconfigure git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
       - uses: actions/checkout@v2
       - name: setup node
         uses: actions/setup-node@v2
