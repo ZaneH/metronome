@@ -21,6 +21,8 @@ tauri = { version = "1.0.0-rc.9", features = ["api-all"] }
 
 [dependencies.tauri-plugin-store]
 git = "https://github.com/tauri-apps/tauri-plugin-store"
+#tag = "v0.1.0"
+branch = "dev"
 
 [features]
 # by default Tauri runs in production mode
