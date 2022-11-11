@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "pw.zane.metronome",
+      "identifier": "com.zane.metronome",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -51,7 +51,12 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI5ODJFNDA4ODM4NkY4QjAKUldTdytJYURDT1NDS1FZV0lUS3doQURibmtaRGZqUzJxUmI3UzBXY0JxK1drcCtNLy92bUpEaVoK",
+      "endpoints": [
+        "https://gist.github.com/ZaneH/7afa554e4b20e91668b683f0d0985c81/raw"
+      ]
     },
     "windows": [
       {
