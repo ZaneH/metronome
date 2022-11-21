@@ -1,6 +1,6 @@
 # The Minimal Metronome
 
-[Visit the landing page](https://metronome-www.vercel.app)
+[Visit the landing page](https://zane.pw/metronome)
 
 ## Features
 
