@@ -44,7 +44,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
   const [muteSound, setMuteSound] = useState(false)
   const [blinkOnTick, setBlinkOnTick] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
-  const [customBackgroundColor, setCustomBackgroundColor] = useState(false)
+  // const [customBackgroundColor, setCustomBackgroundColor] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   /**
@@ -96,9 +96,9 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
         case 'dark-mode':
           setDarkMode(value)
           break
-        case 'custom-background-color':
-          setCustomBackgroundColor(value)
-          break
+        // case 'custom-background-color':
+        //   setCustomBackgroundColor(value)
+        //   break
       }
     },
     [
@@ -106,7 +106,7 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
       setMuteSound,
       setBlinkOnTick,
       setDarkMode,
-      setCustomBackgroundColor,
+      // setCustomBackgroundColor,
       store,
     ]
   )
@@ -133,13 +133,13 @@ const KVContextProvider: FC<KVContextType> = ({ children }) => {
     muteSound,
     blinkOnTick,
     darkMode,
-    customBackgroundColor,
+    // customBackgroundColor,
     setIsLoading,
     setShowMetronome,
     setMuteSound,
     setBlinkOnTick,
     setDarkMode,
-    setCustomBackgroundColor,
+    // setCustomBackgroundColor,
     saveSetting,
   }
 

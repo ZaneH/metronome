@@ -4,10 +4,10 @@ export const SETTINGS = {
   // Key: Label
   'show-metronome': 'Show metronome',
   'dark-mode': 'Dark mode',
-  'change-theme': 'Change Theme',
+  // 'change-theme': 'Change Theme',
   'mute-sound': 'Mute sound',
   'blink-on-tick': 'Blink on tick',
-  'custom-background-color': 'Custom background',
+  // 'custom-background-color': 'Custom background',
 } as const
 
 export type TimeSignatureType = [number, number]

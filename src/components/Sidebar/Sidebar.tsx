@@ -72,21 +72,21 @@ const SidebarCheck = styled.div`
   display: flex-inline;
 `
 
-const Button = styled.div`
-  width: 100%;
-  height: 44px;
-  background-color: ${(p) => p.theme.button.primaryBg};
-  color: ${(p) => p.theme.button.color};
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.01rem;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 16px 0;
-  cursor: pointer;
-`
+// const Button = styled.div`
+//   width: 100%;
+//   height: 44px;
+//   background-color: ${(p) => p.theme.button.primaryBg};
+//   color: ${(p) => p.theme.button.color};
+//   font-family: 'Inter', sans-serif;
+//   font-weight: 600;
+//   letter-spacing: 0.01rem;
+//   border-radius: 12px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 16px 0;
+//   cursor: pointer;
+// `
 
 type SettingItem = {
   key: string
@@ -109,8 +109,7 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
     setBlinkOnTick,
     darkMode,
     setDarkMode,
-    customBackgroundColor,
-    setCustomBackgroundColor,
+    // customBackgroundColor,
     saveSetting,
   } = useContext(KVContext)
   const theme = useTheme()
@@ -126,13 +125,13 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           return blinkOnTick
         case 'dark-mode':
           return darkMode
-        case 'custom-background-color':
-          return customBackgroundColor
+        // case 'custom-background-color':
+        //   return customBackgroundColor
         default:
           return false
       }
     },
-    [showMetronome, muteSound, blinkOnTick, darkMode, customBackgroundColor]
+    [showMetronome, muteSound, blinkOnTick, darkMode]
   )
 
   const settingItems = useMemo(
@@ -163,10 +162,10 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
       case 'dark-mode':
         setDarkMode?.(checked!)
         break
-      case 'custom-background-color':
-        setCustomBackgroundColor?.(checked!)
-        saveSetting?.('custom-background-color', checked!)
-        break
+      // case 'custom-background-color':
+      //   setCustomBackgroundColor?.(checked!)
+      //   saveSetting?.('custom-background-color', checked!)
+      //   break
     }
   }
 
@@ -186,27 +185,24 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           onClick={() => setIsShowingSidebar?.(false)}
         />
       </SidebarTitle>
-      {settingItems.map((s) =>
-        (s.key as MetroSettingType) === 'change-theme' ? (
-          <Button key={s.key}>{s.label}</Button>
-        ) : (
-          <SidebarRow
-            key={s.key}
-            onClick={() =>
-              handleRowClick(s.key as MetroSettingType, !s.checked)
-            }
-          >
-            <SidebarSubtext>{s.label}</SidebarSubtext>
-            <SidebarCheck>
-              {s.checked ? (
-                <CheckboxLineIcon color={theme.text.primary} size={24} />
-              ) : (
-                <CheckboxBlankLineIcon color={theme.text.primary} size={24} />
-              )}
-            </SidebarCheck>
-          </SidebarRow>
-        )
-      )}
+      {settingItems.map((s) => (
+        // (s.key as MetroSettingType) === 'change-theme' ? (
+        //   <Button key={s.key}>{s.label}</Button>
+        // ) : (
+        <SidebarRow
+          key={s.key}
+          onClick={() => handleRowClick(s.key as MetroSettingType, !s.checked)}
+        >
+          <SidebarSubtext>{s.label}</SidebarSubtext>
+          <SidebarCheck>
+            {s.checked ? (
+              <CheckboxLineIcon color={theme.text.primary} size={24} />
+            ) : (
+              <CheckboxBlankLineIcon color={theme.text.primary} size={24} />
+            )}
+          </SidebarCheck>
+        </SidebarRow>
+      ))}
     </SidebarContainer>
   )
 }
