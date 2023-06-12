@@ -14,7 +14,11 @@
 
 <br />
 
-<div align="center"><img height="500px" alt="App Screenshot" src="https://github.com/ZaneH/metronome/assets/8400251/dfd8a318-db5e-4499-8f56-ebf8d91d6c94"></div>
+<div align="center">
+  <img width="38%" alt="App Screenshot" src="https://i.imgur.com/flnGoVg.png">
+  &nbsp;&nbsp;&nbsp;
+  <img width="38%" alt="App Screenshot" src="https://i.imgur.com/oVpL7QY.png">
+</div>
 
 <br />
 
