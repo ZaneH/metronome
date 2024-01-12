@@ -6,6 +6,7 @@ import styled, { keyframes } from 'styled-components'
 import { MetroSettingType, SETTINGS } from '../../utils'
 import { KVContext } from '../KVContextProvider/KVContextProvider'
 import { MetroContext } from '../MetroContextProvider/MetroContextProvider'
+import MidiSelector from '../MidiSelector'
 import { useTheme } from '../ThemeProvider'
 
 const FadeIn = keyframes`
@@ -50,6 +51,7 @@ const SidebarTitle = styled.div`
 `
 
 const SidebarRow = styled.div`
+  font-family: 'Fira Mono', monospace;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,6 +72,10 @@ const SidebarSubtext = styled.div`
 
 const SidebarCheck = styled.div`
   display: flex-inline;
+`
+
+const MidiContainer = styled.div`
+  padding: 12px 0;
 `
 
 // const Button = styled.div`
@@ -203,6 +209,9 @@ const Sidebar: FC<SidebarProps> = ({ title }) => {
           </SidebarCheck>
         </SidebarRow>
       ))}
+      <MidiContainer>
+        <MidiSelector />
+      </MidiContainer>
     </SidebarContainer>
   )
 }
