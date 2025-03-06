@@ -1,7 +1,5 @@
 # The Minimal Metronome
 
-[Visit the landing page](https://zane.pw/metronome)
-
 ## Features
 
 - [x] Tempo tapper
