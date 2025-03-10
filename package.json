@@ -16,6 +16,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
     "remixicon-react": "^1.0.0",
     "styled-components": "^5.3.5",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
